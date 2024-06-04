@@ -1,0 +1,51 @@
+/* reset.css */
+
+/* Resetar margens e preenchimento para elementos HTML */
+html, body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Remover listas padrão */
+  ul, ol {
+    list-style: none;
+    padding: 0;
+  }
+  
+  /* Remover espaçamento entre elementos de lista */
+  li {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Remover margens e preenchimento de imagens */
+  img {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Remover estilos padrão de links */
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+
+
+header {
+    background-color: #004587; /* Set the background color using hex code */
+    color: white; /* Ensure text is readable with a light color */
+    padding: 20px; /* Add some padding for visual appeal */
+    text-align: center; /* Optionally center the content within the header */
+  }
+
+   /* Footer styles */
+   footer {
+    background-color: #ddd;  /* Light gray background */
+    color: #333;  /* Dark gray text */
+    padding: 10px;
+    text-align: center;
+    position: fixed; /* Make the footer fixed */
+  bottom: 0; /* Place it at the bottom */
+  width: 100%; /* Stretch it to full width */
+  }
