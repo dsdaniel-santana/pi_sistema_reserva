@@ -1,17 +1,35 @@
 <?php
-class Database{
+class Database
+{
     private static $instance = null;
-    public static function getInstance(){
-        if(self::$instance === null){
-            $host = 'localhost';
-            $dbname = 'sistema_reserva';
-            $username = 'root';
-            $password = '';
+    private $conn;
+    private $host = 'localhost';
+    private $db = 'sitema_reserva';
+    private $user = 'root';
+    private $pass = '';
 
-            self::$instance = new PDO("mysql:host=$host; dbname=$dbname", $username, $password);
-            self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    private function __construct()
+    {
+        try {
+            $this->conn = new PDO("mysql:host=$this->host;dbname=$this->db", $this->user, $this->pass);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            echo 'Connection failed: ' . $e->getMessage();
+        }
+    }
+
+    // Singleton Design Pattern
+    // https://refactoring.guru/design-patterns/singleton
+    
+    public static function getInstance()
+    {
+        if (!self::$instance) {
+            self::$instance = new Database();
         }
         return self::$instance;
     }
+
+    public function getConnection() {
+        return $this->conn;
+    }
 }
-?>
