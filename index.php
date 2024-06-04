@@ -1,10 +1,19 @@
 <?php
 require_once "Backend/config/Database.php";
-require_once "../pi_sistema_reserva/Frontend/template/cabrod.php";
+require_once "./Frontend/template/header.php";
+
+
+echo "teste paginha"
+
+
+
 
 
 
 
 ?>
 
-<link rel="stylesheet" href="../pi_sistema_reserva/Frontend/css/style.css">
+<?php 
+require_once "./Frontend/template/footer.php";
+?>
+
