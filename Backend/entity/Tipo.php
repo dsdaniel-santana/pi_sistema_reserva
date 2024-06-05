@@ -1,5 +1,5 @@
 <?php
-class Sala_tipo {
+class Tipo {
     private $id;
     private $tipo;
 
