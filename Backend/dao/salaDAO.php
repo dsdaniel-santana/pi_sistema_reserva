@@ -54,7 +54,7 @@
 
         public function create($sala) {
             try {
-                $sql = "INSERT INTO sala (Numero, capacidade, andar, tipo_ID) VALUES
+                $sql = "INSERT INTO sala (numero, capacidade, andar, tipo_ID) VALUES
                 (:numero, :capacidade, :andar, :tipo_id)";
 
                 $stmt = $this->db->prepare($sql);
@@ -63,7 +63,7 @@
                 $numero = $sala->getNumero();
                 $capacidade = $sala->getCapacidade();
                 $andar = $sala->getAndar();
-                $tipo_id = $sala->getTipo();
+                $tipo_id = $sala->getTipo_id();
                 
                 $stmt->bindParam(':numero', $numero);
                 $stmt->bindParam(':capacidade', $capacidade);
@@ -95,7 +95,7 @@
                     $numero = $sala->getNumero();
                     $capacidade = $sala->getCapacidade();
                     $andar = $sala->getAndar();
-                    $tipo_id = $sala->getTipo();
+                    $tipo_id = $sala->getTipo_id();
     
                     $stmt->bindParam(':id', $id);
                     $stmt->bindParam(':numero', $numero);

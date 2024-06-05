@@ -4,15 +4,15 @@
         private $numero;
         private $capacidade;
         private $andar;
-        private $tipo;
+        private $tipo_id;
         
         
-        public function __construct($id, $numero, $capacidade, $andar, $tipo,) {
+        public function __construct($id, $numero, $capacidade, $andar, $tipo_id) {
             $this->id = $id;
             $this->numero = $numero;
             $this->capacidade = $capacidade;
-            $this->andar;
-            $this->tipo = $tipo;
+            $this->andar = $andar;
+            $this->tipo_id = $tipo_id;
             
             
         }
@@ -27,17 +27,19 @@
             return $this->numero;
         }
 
+        public function getCapacidade() {
+            return $this->capacidade;
+        }
+
         public function getAndar() {
             return $this->andar;
         }
 
-        public function getTipo() {
-            return $this->tipo;
+        public function getTipo_id() {
+            return $this->tipo_id;
         }
 
-        public function getCapacidade() {
-            return $this->capacidade;
-        }
+       
 
         // SETTERS
     }

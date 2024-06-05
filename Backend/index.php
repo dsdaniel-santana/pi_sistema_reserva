@@ -2,11 +2,11 @@
 require_once "config/Database.php";
 require_once "dao/EventoDAO.php";
 require_once "entity/Evento.php";
-require_once "dao/TipoDAO.php";
+require_once "dao/SalaDAO.php";
 
-$tipoDAO = new TipoDAO();
-$tipo = new Tipo(2, "Lab. Enfermagem");
-print_r($tipoDAO->delete(3));
+$salaDAO = new SalaDAO();
+$sala = new Sala(2, "13", 40, 1, 2);
+echo $salaDAO->delete(3);
 
 ?>
 
