@@ -1,12 +1,11 @@
 <?php
 require_once "config/Database.php";
-require_once "dao/EventoDAO.php";
-require_once "entity/Evento.php";
-require_once "dao/SalaDAO.php";
+require_once "dao/ReservaDAO.php";
 
-$salaDAO = new SalaDAO();
-$sala = new Sala(2, "13", 40, 1, 2);
-echo $salaDAO->delete(3);
+
+$reservaDAO = new ReservaDAO();
+
+$reservas = $reservaDAO->getAll();
 
 ?>
 
@@ -34,24 +33,22 @@ echo $salaDAO->delete(3);
     </nav>
 
     <div class="container">
+        <h1 class="my-4">Lista de Reservas</h1>
+        <a href="detalhes.php" class="btn btn-primary mb-4">Adicionar Contato</a>
         <div class="row">
-            <div class="col-sm-6 mb-3 mb-sm-0">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <?php foreach ($reservas as $reserva) : ?>
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo htmlspecialchars($reserva->getStatus_sala(), ENT_QUOTES, 'UTF-8'); ?></h5>
+                                <p class="card-text"><?php echo htmlspecialchars($reserva->getData_inicio(), ENT_QUOTES, 'UTF-8'); ?></p>
+                                <p class="card-text"><?php echo htmlspecialchars($reserva->getHorario_inicio(), ENT_QUOTES, 'UTF-8'); ?></p>
+                                <a href="" class="btn btn-primary">Detalhes</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
