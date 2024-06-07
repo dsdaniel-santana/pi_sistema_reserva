@@ -1,7 +1,7 @@
 <?php
     require_once "config/Database.php";
     require_once "BaseDAO.php";
-    require_once "entity/Tipo.php";
+    require_once "../entity/tipo.php";
 
     class TipoDAO implements BaseDAO {
         private $db;
