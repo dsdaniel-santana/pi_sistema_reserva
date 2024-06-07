@@ -36,7 +36,7 @@ $reservas = $reservaDAO->getAll();
         <h1 class="my-4">Lista de Reservas</h1>
         <a href="detalhes.php" class="btn btn-primary mb-4">Adicionar Contato</a>
         <div class="row">
-            <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="row row-cols-11 row-cols-md-2 g-4">
                 <?php foreach ($reservas as $reserva) : ?>
                     <div class="col">
                         <div class="card">
