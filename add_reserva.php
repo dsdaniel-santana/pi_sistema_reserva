@@ -7,7 +7,8 @@
 //     exit();
 // }
 
-require_once 'dao/ReservaDAO.php';
+require_once 'Backend/dao/ReservaDAO.php';
+require_once 'Backend/entity/Reserva.php';
 
 $reservaDAO = new ReservaDAO();
 $reserva = null;
@@ -73,42 +74,42 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     <div class="form-group">
                         <label for="data_fim">Data Fim:</label>
-                        <input type="date" class="form-control" id="data_fim" name="data_fim" value="<?php echo $reserva ? $reserva->getData_fim() : ''  ?>" required>
+                        <input type="datetime" class="form-control" id="data_fim" name="data_fim" value="<?php echo $reserva ? $reserva->getData_fim() : ''  ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="horario_inicio">horario Inicio:</label>
-                        <input type="time" class="form-control" id="horario_inicio" name="horario_inicio" value="<?php echo $reserva ? $reserva->getData_fim() : ''  ?>" required>
+                        <input type="time" class="form-control" id="horario_inicio" name="horario_inicio" value="<?php echo $reserva ? $reserva->getHorario_inicio() : ''  ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="horario_fim">Horario Fim:</label>
-                        <input type="time" class="form-control" id="horario_fim" name="horario_fim" value="<?php echo $reserva ? $reserva->getData_fim() : ''  ?>" required>
+                        <input type="time" class="form-control" id="horario_fim" name="horario_fim" value="<?php echo $reserva ? $reserva->getHoraio_fim() : ''  ?>" required>
                     </div>
                     <div class="form-group">
                         <h5>Dias Da Semana:</h5>
                         <div style="display: flex;">
-                        <label for="seg">Seg:</label>
-                        <input type="checkbox" class="form-control" id="seg" name="seg">
-                        <label for="ter">Ter:</label>
-                        <input type="checkbox" class="form-control" id="ter" name="ter">
-                        <label for="qua">Qua:</label>
-                        <input type="checkbox" class="form-control" id="qua" name="qua">
-                        <label for="qui">Qui:</label>
-                        <input type="checkbox" class="form-control" id="qui" name="qui">
-                        <label for="sex">sex:</label>
-                        <input type="checkbox" class="form-control" id="sex" name="sex">
-                        <label for="sab">Sab:</label>
-                        <input type="checkbox" class="form-control" id="sab" name="sab">
-                        <label for="dom">Dom:</label>
-                        <input type="checkbox" class="form-control" id="dom" name="dom">
+                        <label for="2">Seg:</label>
+                        <input type="checkbox" class="form-control" id="2" name="2">
+                        <label for="3">Ter:</label>
+                        <input type="checkbox" class="form-control" id="3" name="3">
+                        <label for="4">Qua:</label>
+                        <input type="checkbox" class="form-control" id="4" name="4">
+                        <label for="5">Qui:</label>
+                        <input type="checkbox" class="form-control" id="5" name="5">
+                        <label for="6">Sex:</label>
+                        <input type="checkbox" class="form-control" id="6" name="6">
+                        <label for="7">Sab:</label>
+                        <input type="checkbox" class="form-control" id="7" name="7">
+                        <label for="1">Dom:</label>
+                        <input type="checkbox" class="form-control" id="1" name="1">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="evento_id">Evento id:</label>
-                        <input type="number" class="form-control" id="evento_id" name="evento_id" value="<?php echo $reserva ? $reserva->getData_fim() : ''  ?>" required>
+                        <input type="number" class="form-control" id="evento_id" name="evento_id" value="<?php echo $reserva ? $reserva->getEvento_id() : ''  ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="sala_id">Sala id:</label>
-                        <input type="number" class="form-control" id="sala_id" name="sala_id" value="<?php echo $reserva ? $reserva->getData_fim() : ''  ?>" required>
+                        <input type="number" class="form-control" id="sala_id" name="sala_id" value="<?php echo $reserva ? $reserva->getSala_id() : ''  ?>" required>
                     </div>
                     <button type="submit" name="save" class="btn btn-success">Salvar</button>
                     <?php if($reserva) : ?>

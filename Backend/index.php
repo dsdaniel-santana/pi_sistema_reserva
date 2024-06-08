@@ -43,7 +43,7 @@ $reservas = $reservaDAO->getAll();
                             <h5 class="card-title"><?php echo htmlspecialchars($reserva->getStatus_sala(), ENT_QUOTES, 'UTF-8'); ?></h5>
                             <p class="card-text"><?php echo htmlspecialchars($reserva->getData_inicio(), ENT_QUOTES, 'UTF-8'); ?></p>
                             <p class="card-text"><?php echo htmlspecialchars($reserva->getHoraio_fim(), ENT_QUOTES, 'UTF-8'); ?></p>
-                            <a href="" class="btn btn-primary">Detalhes</a>
+                            <a href="addReserva.php" class="btn btn-primary">Detalhes</a>
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 <?php
-    require_once "config/Database.php";
+    require_once "Backend/config/Database.php";
     require_once "BaseDAO.php";
-    require_once "entity/Reserva.php";
+    require_once "Backend/entity/Reserva.php";
 
     class ReservaDAO implements BaseDAO {
         private $db;
