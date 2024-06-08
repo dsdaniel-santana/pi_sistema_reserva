@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS reserva (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     status_sala ENUM("Livre","Reservado","Em Manutenção"),
 	data_inicio DATE DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    data_fim DATE DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    data_fim DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     horario_inicio TIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     horario_fim TIME NOT NULL,
     dias_semana VARCHAR(30) NOT NULL,
@@ -54,6 +54,8 @@ INSERT INTO evento (titulo, docente, oferta) VALUES
 	("Técnico em Informatica Para Internet", "Aecio", "295465");
 
 INSERT INTO reserva (status_sala, data_inicio, data_fim, horario_inicio, horario_fim, dias_semana, evento_ID, sala_ID) VALUES 
-	("Reservado", "2024-03-06", "2024-05-24", "19:00:56", "22:30:34", "2-3-4-5-6", 1, 1);
+	("Livre", "2024-03-06", "2024-05-24", "19:00:56", "22:30:34", "2-3-4-5-6", 1, 1);
 
+SELECT * from sala;
 
+drop database sistema_reserva;
