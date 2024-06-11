@@ -13,36 +13,36 @@ require_once 'Backend/entity/Reserva.php';
 $reservaDAO = new ReservaDAO();
 $reserva = null;
 
-if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
     $reserva  = $reservaDAO->getById($_GET['id']);
 }
 
-if($_SERVER['REQUEST_METHOD'] === 'POST') {    
-    if(isset($_POST['save'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['save'])) {
         if (isset($_POST['id']) && !empty($_POST['id'])) {
             $reserva  = $reservaDAO->getById($_POST['id']);
+            $dias_semanaStr = implode(", ", $_POST['dias']);
 
             $reserva->setStatus_sala($_POST['status_sala']);
             $reserva->setData_inicio($_POST['data_inicio']);
             $reserva->setData_fim($_POST['data_fim']);
             $reserva->setHorario_inicio($_POST['horario_inicio']);
             $reserva->setHoraio_fim($_POST['horario_fim']);
-            $reserva->setDias_semana($_POST['dias_semana']);
+            $reserva->setDias_semana($dias_semanaStr);
             $reserva->setEvento_id($_POST['evento_id']);
             $reserva->setSala_id($_POST['sala_id']);
-            
+
             $reservaDAO->update($reserva);
-            
         } else {
             $novaReserva = new Reserva(null, $_POST['status_sala'], $_POST['data_inicio'], $_POST['data_fim'], $_POST['horario_inicio'], $_POST['horario_fim'], $_POST['dias_semana'], 1, 1);
-            $reservaDAO->create($novaReserva);            
+            $reservaDAO->create($novaReserva);
         }
 
         header('Location: index.php');
         exit;
     }
 
-    if(isset($_POST['delete']) && isset($_POST['id'])) {
+    if (isset($_POST['delete']) && isset($_POST['id'])) {
         $reservaDAO->delete($_POST['id']);
         header('Location: index.php');
         exit;
@@ -92,8 +92,23 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="time" class="form-control" id="horario_fim" name="horario_fim" value="<?php echo $reserva ? $reserva->getHoraio_fim() : ''  ?>" required>
                     </div>
                     <div class="form-group">
-                        <label for="dias_semana">Dias da semana</label>
-                        <input type="text" class="form-control" id="dias_semana" name="dias_semana" value="<?php echo $reserva ? $reserva->getDias_semana() : ''  ?>" required>
+                        <h5>Dias Da Semana:</h5>
+                        <div style="display: flex;">
+                            <label for="seg">Seg:</label>
+                            <input type="checkbox" class="form-control" id="seg" name="dias[]" value="1">
+                            <label for="ter">Ter:</label>
+                            <input type="checkbox" class="form-control" id="ter" name="dias[]" value="2">
+                            <label for="qua">Qua:</label>
+                            <input type="checkbox" class="form-control" id="qua" name="dias[]" value="3">
+                            <label for="qui">Qui:</label>
+                            <input type="checkbox" class="form-control" id="qui" name="dias[]" value="4">
+                            <label for="sex">Sex:</label>
+                            <input type="checkbox" class="form-control" id="sex" name="dias[]" value="5">
+                            <label for="sab">Sab:</label>
+                            <input type="checkbox" class="form-control" id="sab" name="dias[]" value="6">
+                            <label for="dom">Dom:</label>
+                            <input type="checkbox" class="form-control" id="dom" name="dias[]" value="1">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="evento_id">Evento id:</label>
@@ -104,9 +119,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="number" class="form-control" id="sala_id" name="sala_id" value="<?php echo $reserva ? $reserva->getSala_id() : ''  ?>" required>
                     </div>
                     <button type="submit" name="save" class="btn btn-success">Salvar</button>
-                    <?php if($reserva) : ?>
+                    <?php if ($reserva) : ?>
                         <button type="submit" name="delete" class="btn btn-danger">Excluir</button>
-                    <?php endif ?>    
+                    <?php endif ?>
                     <a href="index.php" class="btn btn-secondary">Voltar</a>
                 </div>
             </div>
