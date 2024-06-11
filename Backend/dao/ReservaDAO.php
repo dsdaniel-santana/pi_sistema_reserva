@@ -103,10 +103,11 @@
                 
                 $sql = "UPDATE reserva SET status_sala = :status_sala, data_inicio = :data_inicio, data_fim = :data_fim, horario_inicio = :horario_inicio, 
                 horario_fim = :horario_fim, dias_semana = :dias_semana, evento_ID = :evento_ID, sala_ID = :sala_ID
-                WHERE Id = :id";
+                WHERE id = :id";
                 
                 $stmt = $this->db->prepare($sql);
                 // Bind parameters by reference
+                $id = $reserva->getId();
                 $status_sala = $reserva->getStatus_sala();
                 $data_inicio = $reserva->getData_inicio();
                 $data_fim = $reserva->getData_fim();
@@ -116,6 +117,7 @@
                 $evento_ID = $reserva->getEvento_id();
                 $sala_ID = $reserva->getSala_id();
 
+                $stmt->bindParam(':id', $id);
                 $stmt->bindParam(':status_sala', $status_sala);
                 $stmt->bindParam(':data_inicio', $data_inicio);
                 $stmt->bindParam(':data_fim', $data_fim);
@@ -129,7 +131,7 @@
 
                 return true;
             } catch (PDOException $e) {
-                return false;
+                return $e;
             }
         }
 

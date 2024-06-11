@@ -60,5 +60,40 @@
         public function getSala_id() {
             return $this->sala_id;
         }
+
+
+        // SETTERS
+
+        public function setStatus_sala($status_sala) {
+            $this->status_sala = $status_sala;
+        }
+
+        public function setData_inicio($data_inicio) {
+            $this->data_inicio = $data_inicio;
+        }
+
+        public function setData_fim($data_fim) {
+            $this->data_fim = $data_fim;
+        }
+
+        public function setHorario_inicio($horario_inicio) {
+            $this->horario_inicio = $horario_inicio;
+        }
+
+        public function setHoraio_fim($horario_fim) {
+            $this->horario_fim = $horario_fim;
+        }
+
+        public function setDias_semana($dias_semana) {
+            $this->dias_semana = $dias_semana;
+        }
+
+        public function setEvento_id($evento_id) {
+            $this->evento_id = $evento_id;
+        }
+
+        public function setSala_id($sala_id) {
+            $this->sala_id = $sala_id;
+        }
     }
 ?>

@@ -22,10 +22,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['id']) && !empty($_POST['id'])) {
             $reserva  = $reservaDAO->getById($_POST['id']);
 
-            //$reserva->setStatus_sala($_POST['status_sala']);
+            $reserva->setStatus_sala($_POST['status_sala']);
+            $reserva->setData_inicio($_POST['data_inicio']);
+            $reserva->setData_fim($_POST['data_fim']);
+            $reserva->setHorario_inicio($_POST['horario_inicio']);
+            $reserva->setHoraio_fim($_POST['horario_fim']);
+            $reserva->setDias_semana($_POST['dias_semana']);
+            $reserva->setEvento_id($_POST['evento_id']);
+            $reserva->setSala_id($_POST['sala_id']);
             
-
             $reservaDAO->update($reserva);
+            
         } else {
             $novaReserva = new Reserva(null, $_POST['status_sala'], $_POST['data_inicio'], $_POST['data_fim'], $_POST['horario_inicio'], $_POST['horario_fim'], $_POST['dias_semana'], 1, 1);
             $reservaDAO->create($novaReserva);            
@@ -51,7 +58,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Contato</title>
+    <title>Detalhes da Reserva</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -60,7 +67,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="container">
         <h1 class="my-4">Detalhes do Contato</h1>
-        <form action="detalhes.php" method="POST">
+        <form action="add_reserva.php" method="POST">
             <input type="hidden" name="id" value="<?php echo $reserva ? $reserva->getId() : ''  ?>">
             <div class="card">
                 <div class="card-body">
@@ -85,23 +92,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="time" class="form-control" id="horario_fim" name="horario_fim" value="<?php echo $reserva ? $reserva->getHoraio_fim() : ''  ?>" required>
                     </div>
                     <div class="form-group">
-                        <h5>Dias Da Semana:</h5>
-                        <div style="display: flex;">
-                        <label for="2">Seg:</label>
-                        <input type="checkbox" class="form-control" id="2" name="2">
-                        <label for="3">Ter:</label>
-                        <input type="checkbox" class="form-control" id="3" name="3">
-                        <label for="4">Qua:</label>
-                        <input type="checkbox" class="form-control" id="4" name="4">
-                        <label for="5">Qui:</label>
-                        <input type="checkbox" class="form-control" id="5" name="5">
-                        <label for="6">Sex:</label>
-                        <input type="checkbox" class="form-control" id="6" name="6">
-                        <label for="7">Sab:</label>
-                        <input type="checkbox" class="form-control" id="7" name="7">
-                        <label for="1">Dom:</label>
-                        <input type="checkbox" class="form-control" id="1" name="1">
-                        </div>
+                        <label for="dias_semana">Dias da semana</label>
+                        <input type="text" class="form-control" id="dias_semana" name="dias_semana" value="<?php echo $reserva ? $reserva->getDias_semana() : ''  ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="evento_id">Evento id:</label>
