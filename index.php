@@ -46,7 +46,7 @@ $salas = $salaDAO->getAll();
                             <h5 class="card-title">Status: <?php echo $reserva->getStatus_sala(); ?></h5>
                             <p class="card-text">Data Inicio: <?php echo htmlspecialchars($reserva->getData_inicio(), ENT_QUOTES, 'UTF-8'); ?></p>
                             <p class="card-text">Data fim: <?php echo htmlspecialchars($reserva->getData_fim(), ENT_QUOTES, 'UTF-8'); ?></p>
-                            <p class="card-text">Horario inicio: <?php echo htmlspecialchars($reserva->getHorario_inicio(), ENT_QUOTES, 'UTF-8'); ?></p>
+                            <p class="card-text">Horario inicio: <?php echo htmlspecialchars(   $reserva->getHorario_inicio(), ENT_QUOTES, 'UTF-8'); ?></p>
                             <p class="card-text">Horario fim: <?php echo htmlspecialchars($reserva->getHoraio_fim(), ENT_QUOTES, 'UTF-8'); ?></p>
                             <p class="card-text">Dias da semana: <?php echo htmlspecialchars($reserva->getDias_semana(), ENT_QUOTES, 'UTF-8'); ?></p>
                             <a href="add_reserva.php?id=<?php echo $reserva->getId(); ?>" class="btn btn-primary">Detalhes</a>
