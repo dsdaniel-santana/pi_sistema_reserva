@@ -34,7 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $reservaDAO->update($reserva);
         } else {
-            $novaReserva = new Reserva(null, $_POST['status_sala'], $_POST['data_inicio'], $_POST['data_fim'], $_POST['horario_inicio'], $_POST['horario_fim'], $_POST['dias_semana'], 1, 1);
+            $dias_semanaStr = implode(", ", $_POST['dias']);
+            $novaReserva = new Reserva(null, $_POST['status_sala'], $_POST['data_inicio'], $_POST['data_fim'], $_POST['horario_inicio'], $_POST['horario_fim'], $dias_semanaStr, 1, 1);
             $reservaDAO->create($novaReserva);
         }
 
