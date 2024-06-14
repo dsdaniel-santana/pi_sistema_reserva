@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             $eventoDAO->update($evento);
         } else {
-            $novoEvento = new Evento(null, $_POST['evento'], $_POST['docente'], $_POST['oferta']);
+            $novoEvento = new Evento(null, $_POST['titulo'], $_POST['docente'], $_POST['oferta']);
             $eventoDAO->create($novoEvento);
         }
 
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="form-group">
                         <label for="docente">Docente:</label>
                         <!-- <label for="status_sala">status:</label> -->
-                        <input type="text" class="form-control" id="titulo" name="titulo" value="<?php echo $evento ? $evento->getDocente() : ''  ?>" required>
+                        <input type="text" class="form-control" id="docente" name="docente" value="<?php echo $evento ? $evento->getDocente() : ''  ?>" required>
                     </div>
 
                     <div class="form-group">
