@@ -1,12 +1,11 @@
 <?php
-require_once "Backend/config/Database.php";
-require_once "Backend/dao/EventoDAO.php";
-require_once "Backend/entity/Evento.php";
+include_once "Backend/config/Database.php";
+include_once "Backend/dao/EventoDAO.php";
+include_once "Backend/entity/Evento.php";
 
 $eventoDAO = new EventoDAO();
 $eventos = $eventoDAO->getAll();
 
-print_r($eventos);
 
 ?>
 
@@ -15,7 +14,7 @@ print_r($eventos);
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=h1, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Eventos</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
