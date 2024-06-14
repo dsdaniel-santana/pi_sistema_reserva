@@ -1,19 +1,17 @@
 <?php
 require_once "Backend/config/Database.php";
-require_once "Backend/dao/ReservaDAO.php";
-require_once "Backend/dao/SalaDAO.php";
+require_once "Backend/dao/EventoDAO.php";
+require_once "Backend/entity/Evento.php";
 
+$eventoDAO = new EventoDAO();
+$eventos = $eventoDAO->getAll();
 
-$reservaDAO = new ReservaDAO();
-$reservas = $reservaDAO->getAll();
-
-$salaDAO = new SalaDAO();
-$salas = $salaDAO->getAll();
+print_r($eventos);
 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -37,19 +35,16 @@ $salas = $salaDAO->getAll();
 
     <div class="container">
         <h1 class="my-4">Lista de Eventos</h1>
-        <a href="add_reserva.php" class="btn btn-primary mb-4">Adicionar Contato</a>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <?php foreach ($reservas as $reserva) : ?>
+        <a href="eventos_add.php" class="btn btn-primary mb-4">Adicionar Eventos</a>
+        <div class="row row-cols-1 row-cols-md-3 g-4">        
+            <?php foreach ($eventos as $evento) : ?>
                 <div class="col">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Status: <?php echo $reserva->getStatus_sala(); ?></h5>
-                            <p class="card-text">Data Inicio: <?php echo htmlspecialchars($reserva->getData_inicio(), ENT_QUOTES, 'UTF-8'); ?></p>
-                            <p class="card-text">Data fim: <?php echo htmlspecialchars($reserva->getData_fim(), ENT_QUOTES, 'UTF-8'); ?></p>
-                            <p class="card-text">Horario inicio: <?php echo htmlspecialchars($reserva->getHorario_inicio(), ENT_QUOTES, 'UTF-8'); ?></p>
-                            <p class="card-text">Horario fim: <?php echo htmlspecialchars($reserva->getHoraio_fim(), ENT_QUOTES, 'UTF-8'); ?></p>
-                            <p class="card-text">Dias da semana: <?php echo htmlspecialchars($reserva->getDias_semana(), ENT_QUOTES, 'UTF-8'); ?></p>
-                            <a href="add_reserva.php?id=<?php echo $reserva->getId(); ?>" class="btn btn-primary">Detalhes</a>
+                            <h5 class="card-title">Titulo: <?php echo $evento->getTitulo(); ?></h5>
+                            <p class="card-text">Docente: <?php echo $evento->getDocente(); ?></p>
+                            <p class="card-text">Oferta: <?php echo $evento->getOferta(); ?></p>                            
+                            <a href="eventos_add.php?id=<?php echo $evento->getId(); ?>" class="btn btn-primary">Detalhes</a>
                         </div>
                     </div>
                 </div>

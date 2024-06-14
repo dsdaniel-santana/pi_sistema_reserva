@@ -46,5 +46,7 @@
         public function setOferta($oferta) {
             $this->oferta = $oferta;
         }
+
+        
     }
 ?>
