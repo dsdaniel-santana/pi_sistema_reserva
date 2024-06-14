@@ -11,10 +11,7 @@ include_once "../pi_sistema_reserva/Backend/config/Database.php";
 include_once "../pi_sistema_reserva/Backend/dao/EventoDAO.php";
 include_once "../pi_sistema_reserva/Backend/entity/Evento.php";
 
-// require_once 'Backend/dao/EventoDAO.php';
-//require_once '../pi_sistema_reserva/Backend/config/Database.php';
-//require_once 'Backend/dao/EventoDAO.php';
-//require_once 'Backend/entity/';
+
 
 $eventoDAO = new EventoDAO();
 $evento = null;

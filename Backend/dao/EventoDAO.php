@@ -1,7 +1,8 @@
 <?php
     
-    include_once "../config/Database.php";
-    include_once "../entity/Evento.php";
+    include_once "Backend/config/Database.php";
+    include_once "Backend/entity/Evento.php";
+    include_once "Backend/dao/BaseDAO.php";
     //require_once "../config/Database.php";
     //require_once "../entity/Evento.php";
 
