@@ -32,5 +32,19 @@
         public function getOferta() {
             return $this->oferta;
         }
+
+        // SETTERS
+
+        public function setTitulo($titulo) {
+            $this->titulo = $titulo;
+        }
+
+        public function setDocente($docente) {
+            $this->docente = $docente;
+        }
+
+        public function setOferta($oferta) {
+            $this->oferta = $oferta;
+        }
     }
 ?>
