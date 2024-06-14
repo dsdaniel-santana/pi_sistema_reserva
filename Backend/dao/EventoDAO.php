@@ -1,7 +1,7 @@
 <?php
-    require_once "config/Database.php";
+    require_once "Backend/config/Database.php";
     require_once "BaseDAO.php";
-    require_once "entity/Evento.php";
+    require_once "Backend/entity/Evento.php";
 
     class EventoDAO implements BaseDAO {
         private $db;
