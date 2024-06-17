@@ -146,5 +146,23 @@
                 return false;
             }
         }
+
+        public function listarSalas($id) {
+            try {
+                $sql = "SELECT sala.numero, evento.titulo, reserva.horario_inicio, reserva.horario_fim, evento.docente FROM reserva 
+                        LEFT JOIN sala on reserva.sala_ID = sala.id
+                        LEFT JOIN evento on evento_ID = evento.id
+                        WHERE sala_id = :id";
+
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+                $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+               return $reservas;
+            } catch(PDOException $e) {
+                return false;
+            }
+        }
     }
 ?>
