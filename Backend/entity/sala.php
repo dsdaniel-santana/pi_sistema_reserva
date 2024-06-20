@@ -42,5 +42,22 @@
 
 
         // SETTERS
+
+        
+        public function setNumero($numero) {
+            $this->numero = $numero;
+        }
+
+        public function setCapacidade($capacidade) {
+            $this->capacidade = $capacidade;
+        }
+
+        public function setAndar($andar) {
+            $this->andar = $andar;
+        }
+
+        public function setTipo_id($tipo_id) {
+            $this->tipo_id = $tipo_id;
+        }
     }
 ?>
