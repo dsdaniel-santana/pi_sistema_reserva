@@ -16,20 +16,13 @@ $reserva = $reservaDAO->getById(2);
 
 $mapao = $reservaDAO->listarSalas(1);
 
-print_r($mapao)
+//print_r($mapao)
 
 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=h1, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
+<?php
+require_once "Frontend/template/header.php";
+?>
 
 <body>
     <div class="container">
@@ -46,20 +39,22 @@ print_r($mapao)
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($salas as $sala) : ?>
-                <tr>
-                    <?php $mapao =  $reservaDAO->listarSalas($sala->getId());?>
-                    <th scope="row"><?php echo $sala->getNumero()?></th>
-                    <td><?php echo $evento->getTitulo() ?></td>
-                    <td><?php echo $reserva->getHorario_inicio() ?></td>
-                    <td><?php echo $reserva->getHoraio_fim() ?></td>
-                    <td><?php echo $evento->getDocente() ?></td>
-                </tr>
-                <?php endforeach; ?>   
+                <?php foreach ($salas as $sala) : ?>
+                    <tr>
+                        <?php $mapao =  $reservaDAO->listarSalas($sala->getId()); ?>
+                        <th scope="row"><?php echo $sala->getNumero() ?></th>
+                        <td><?php echo $evento->getTitulo() ?></td>
+                        <td><?php echo $reserva->getHorario_inicio() ?></td>
+                        <td><?php echo $reserva->getHoraio_fim() ?></td>
+                        <td><?php echo $evento->getDocente() ?></td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
 
-</body>
+    <?php
+        require_once "Frontend/template/footer.php";
+    ?>
 
-</html>
+    </html>

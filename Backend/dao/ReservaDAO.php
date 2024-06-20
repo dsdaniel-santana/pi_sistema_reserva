@@ -60,6 +60,7 @@
             }
         }
 
+
         public function create($reserva) {
             try {
                 $sql = "INSERT INTO reserva (status_sala, data_inicio, data_fim, horario_inicio, horario_fim, dias_semana,evento_ID, sala_ID) VALUES
@@ -160,6 +161,14 @@
                 $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                return $reservas;
+            } catch(PDOException $e) {
+                return false;
+            }
+        }
+
+        public function getValidacaoParaCriacao($entity) {
+            try {
+                $sql = "";
             } catch(PDOException $e) {
                 return false;
             }

@@ -12,43 +12,35 @@ $salas = $salaDAO->getAll();
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=h1, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-
-<body>
-
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            </div>
-        </div>
-    </nav>
+<?php
+    require_once "Frontend/template/header.php";
+?>
 
     <div class="container">
         <h1 class="my-4">Lista de Reservas</h1>
         <a href="add_reserva.php" class="btn btn-primary mb-4">Adicionar Contato</a>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php foreach ($reservas as $reserva) : ?>
+                <?php
+                   require_once "Backend/dao/EventoDAO.php";
+                   require_once "Backend/entity/Evento.php";
+                   $eventoDAO = new EventoDAO();
+                   $evento = $eventoDAO->getById($reserva->getEvento_id());
+                ?>
                 <div class="col">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Status: <?php echo $reserva->getStatus_sala(); ?></h5>
-                            <p class="card-text">Data Inicio: <?php echo htmlspecialchars($reserva->getData_inicio(), ENT_QUOTES, 'UTF-8'); ?></p>
-                            <p class="card-text">Data fim: <?php echo htmlspecialchars($reserva->getData_fim(), ENT_QUOTES, 'UTF-8'); ?></p>
-                            <p class="card-text">Horario inicio: <?php echo htmlspecialchars(   $reserva->getHorario_inicio(), ENT_QUOTES, 'UTF-8'); ?></p>
-                            <p class="card-text">Horario fim: <?php echo htmlspecialchars($reserva->getHoraio_fim(), ENT_QUOTES, 'UTF-8'); ?></p>
-                            <p class="card-text">Dias da semana: <?php echo htmlspecialchars($reserva->getDias_semana(), ENT_QUOTES, 'UTF-8'); ?></p>
+                            <!-- Inserindo em telas os dados do Evento  -->
+                            <h5 class="card-title"><b>Titulo:</b> <?php echo $evento? $evento->getTitulo() : ''; ?></h5>
+                            <p class="card-text"><b>Docente:</b> <?php echo $evento? $evento->getDocente() : ''; ?></p>
+                            <p class="card-text"><b>Oferta:</b> <?php echo $evento? $evento->getOferta() : ''; ?></p>
+                            <hr>
+
+                            <p class="card-text"><b>Data Inicio:</b> <?php echo htmlspecialchars($reserva->getData_inicio(), ENT_QUOTES, 'UTF-8'); ?></p>
+                            <p class="card-text"><b>Data Fim:</b> <?php echo htmlspecialchars($reserva->getData_fim(), ENT_QUOTES, 'UTF-8'); ?></p>
+                            <p class="card-text"><b>Horario Inicio:</b> <?php echo htmlspecialchars(   $reserva->getHorario_inicio(), ENT_QUOTES, 'UTF-8'); ?></p>
+                            <p class="card-text"><b>Horario Fim:</b> <?php echo htmlspecialchars($reserva->getHoraio_fim(), ENT_QUOTES, 'UTF-8'); ?></p>
+                            <p class="card-text"><b>Dias da Semana:</b> <?php echo htmlspecialchars($reserva->getDias_semana(), ENT_QUOTES, 'UTF-8'); ?></p>
                             <a href="add_reserva.php?id=<?php echo $reserva->getId(); ?>" class="btn btn-primary">Detalhes</a>
                         </div>
                     </div>
@@ -58,6 +50,8 @@ $salas = $salaDAO->getAll();
 
     </div>
 
-</body>
+<?php
+    require_once "Frontend/template/footer.php";
+?>
 
 </html>

@@ -6,29 +6,9 @@ $salaDAO = new salaDAO();
 $salas = $salaDAO->getAll();
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=h1, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-
-<body>
-
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            </div>
-        </div>
-    </nav>
-
+<?php
+    require_once "Frontend/template/header.php";
+?>
     <div class="container">
         <h1 class="my-4">Lista de Salas</h1>
         <a href="add_sala.php" class="btn btn-primary mb-4">Adicionar Sala</a>
@@ -49,5 +29,7 @@ $salas = $salaDAO->getAll();
             <?php endforeach; ?>    
         </div>
     </div>
-</body>
+<?php
+    require_once "Frontend/template/footer.php";
+?>
 </html>

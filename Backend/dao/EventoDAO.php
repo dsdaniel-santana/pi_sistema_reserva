@@ -35,6 +35,27 @@ class EventoDAO implements BaseDAO {
         }
     }
 
+    public function getEventowithReservas($id) {
+        try {
+            $sql = "SELECT reserva.*, evento.* 
+                    FROM reserva
+                    LEFT JOIN evento ON reserva.evento_ID = evento.id
+                    WHERE evento_ID = :id;";
+
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $eventos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $eventos;
+          
+        } catch (PDOException $e) {
+            return false;   
+        }
+    }
+
     public function getAll() {
         try {
             $sql = "SELECT * FROM evento";
