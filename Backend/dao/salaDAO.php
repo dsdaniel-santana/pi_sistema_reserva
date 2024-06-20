@@ -1,7 +1,7 @@
 <?php
     require_once "Backend/config/Database.php";
     require_once "BaseDAO.php";
-    require_once "Backend/entity/Sala.php";
+    require_once "Backend/entity/sala.php";
 
     class SalaDAO implements BaseDAO {
         private $db;
