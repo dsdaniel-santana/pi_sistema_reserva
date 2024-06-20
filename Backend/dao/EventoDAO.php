@@ -25,6 +25,7 @@ class EventoDAO implements BaseDAO {
                 new Evento(
                     $evento['id'],
                     $evento['titulo'] ?? null,
+                    $evento['sigla'] ?? null,
                     $evento['docente'] ?? null,
                     $evento['oferta'] ?? null
                 )
@@ -47,6 +48,7 @@ class EventoDAO implements BaseDAO {
                 return new Evento(
                     $evento['id'],
                     $evento['titulo'] ?? null,
+                    $evento['sigla'] ?? null,
                     $evento['docente'] ?? null,
                     $evento['oferta'] ?? null
                 );
@@ -58,15 +60,17 @@ class EventoDAO implements BaseDAO {
 
     public function create($evento) {
         try {
-            $sql = "INSERT INTO evento (titulo, docente, oferta) VALUES (:titulo, :docente, :oferta)";
+            $sql = "INSERT INTO evento (titulo, sigla, docente, oferta) VALUES (:titulo, :sigla, :docente, :oferta)";
             $stmt = $this->db->prepare($sql);
 
             // Bind parameters by reference
             $titulo = $evento->getTitulo();
+            $sigla = $evento->getSigla();
             $docente = $evento->getDocente();
             $oferta = $evento->getOferta();
 
             $stmt->bindParam(':titulo', $titulo);
+            $stmt->bindParam(':sigla', $sigla);
             $stmt->bindParam(':docente', $docente);
             $stmt->bindParam(':oferta', $oferta);
 
@@ -85,17 +89,19 @@ class EventoDAO implements BaseDAO {
                 return false; // Retorna falso se o usuário não existir
             }
 
-            $sql = "UPDATE evento SET titulo = :titulo, docente = :docente, oferta = :oferta WHERE id = :id";
+            $sql = "UPDATE evento SET titulo = :titulo, sigla = :sigla, docente = :docente, oferta = :oferta WHERE id = :id";
             $stmt = $this->db->prepare($sql);
 
             // Bind parameters by reference
             $id = $evento->getId();
             $titulo = $evento->getTitulo();
+            $sigla = $evento->getSigla();
             $docente = $evento->getDocente();
             $oferta = $evento->getOferta();
 
             $stmt->bindParam(':id', $id);
             $stmt->bindParam(':titulo', $titulo);
+            $stmt->bindParam(':sigla', $sigla);
             $stmt->bindParam(':docente', $docente);
             $stmt->bindParam(':oferta', $oferta);
 
