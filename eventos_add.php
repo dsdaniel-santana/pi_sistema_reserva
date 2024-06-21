@@ -27,13 +27,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // $dias_semanaStr = implode(", ", $_POST['dias']);
 
             $evento->setTitulo($_POST['titulo']);
+            $evento->setSigla($_POST['sigla']);
             $evento->setDocente($_POST['docente']);
             $evento->setOferta($_POST['oferta']);
 
 
             $eventoDAO->update($evento);
         } else {
-            $novoEvento = new Evento(null, $_POST['titulo'], $_POST['docente'], $_POST['oferta']);
+            $novoEvento = new Evento(null, $_POST['titulo'],$_POST['sigla'], $_POST['docente'], $_POST['oferta']);
             $eventoDAO->create($novoEvento);
         }
 
@@ -70,10 +71,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="hidden" name="id" value="<?php echo $evento ? $evento->getId() : ''  ?>">
             <div class="card">
                 <div class="card-body">
+
                     <div class="form-group">
                         <label for="titulo">Titulo do Evento:</label>
                         <!-- <label for="status_sala">status:</label> -->
                         <input type="text" class="form-control" id="titulo" name="titulo" value="<?php echo $evento ? $evento->getTitulo() : ''  ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sigla">Sigla do Evento:</label>
+                        <!-- <label for="status_sala">status:</label> -->
+                        <input type="text" class="form-control" id="sigla" name="sigla" value="<?php echo $evento ? $evento->getSigla() : ''  ?>" required>
                     </div>
 
                     <div class="form-group">
