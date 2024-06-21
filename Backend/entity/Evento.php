@@ -5,7 +5,6 @@ class Evento {
     private $sigla;
     private $docente;
     private $oferta;
-    private $reservas;
 
     public function __construct($id, $titulo, $sigla, $docente, $oferta) {
         $this->id = $id;
@@ -48,9 +47,6 @@ class Evento {
     public function setDocente($docente) {
         $this->docente = $docente;
     
-    }
-    public function setReservas($reservas) {
-        $this->reservas = $reservas;
     }
 
     public function setOferta($oferta) {

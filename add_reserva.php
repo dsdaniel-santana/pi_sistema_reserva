@@ -14,8 +14,11 @@ require_once "Backend/dao/EventoDAO.php";
 $reservaDAO = new ReservaDAO();
 $reserva = null;
 
+$eventoDAO = new EventoDAO();
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
     $reserva  = $reservaDAO->getById($_GET['id']);
+    $evento  = $eventoDAO->getById($_GET['evento_id']);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -68,17 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <div class="container">
-        <?php if(isset($evento)) : ?>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Titulo: <?php echo $evento->getTitulo(); ?></h5>
-                <p class="card-text">Docente: <?php echo $evento->getDocente(); ?></p>
-                <p class="card-text">Oferta: <?php echo $evento->getOferta(); ?></p>
-                <a href="eventos_add.php?id=<?php echo $evento->getId(); ?>" class="btn btn-primary">Detalhes</a>
-            </div>
-        </div>
-        <?php endif ?>
-
+        
         <?php
             if(isset($evento)) {
                 require_once "eventos_add.php";
@@ -106,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     <div class="form-group">
                         <label for="data_fim">Data Fim:</label>
-                        <input type="datetime" class="form-control" id="data_fim" name="data_fim" value="<?php echo $reserva ? $reserva->getData_fim() : ''  ?>" required>
+                        <input type="date" class="form-control" id="data_fim" name="data_fim" value="<?php echo $reserva ? $reserva->getData_fim() : ''  ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="horario_inicio">horario Inicio:</label>

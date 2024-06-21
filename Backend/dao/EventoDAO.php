@@ -49,6 +49,7 @@ class EventoDAO implements BaseDAO {
                 new Evento(
                     $evento['id'],
                     $evento['titulo'] ?? null,
+                    $evento['sigla'] ?? null,
                     $evento['docente'] ?? null,
                     $evento['oferta'] ?? null
                 )
