@@ -30,26 +30,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $evento->setDocente($_POST['docente']);
             $evento->setOferta($_POST['oferta']);
 
-            
+
             $eventoDAO->update($evento);
         } else {
             $novoEvento = new Evento(null, $_POST['titulo'], $_POST['docente'], $_POST['oferta']);
             $eventoDAO->create($novoEvento);
         }
 
-        header('Location: eventos.php');
-        exit;
+        $evento = $eventoDAO->getByOferta($_POST['oferta']);
+        header("Location: add_reserva.php?evento_id=" . $evento->getId());
+        exit();
     }
 
     if (isset($_POST['delete']) && isset($_POST['id'])) {
         $eventoDAO->delete($_POST['id']);
-        header('Location: eventos.php');
+        header('Location: index.php');
         exit;
     }
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -57,15 +56,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Evento</title>
+    <title>Detalhes da Reserva</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
 
+
 <body>
     <div class="container">
-        <h1 class="my-4">Detalhes do Evento</h1>
+        <h3 class="my-4">Detalhes do Evento</h3>
         <form action="eventos_add.php" method="POST">
             <input type="hidden" name="id" value="<?php echo $evento ? $evento->getId() : ''  ?>">
             <div class="card">
@@ -97,7 +97,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
         </form>
+
     </div>
 </body>
+
 
 </html>

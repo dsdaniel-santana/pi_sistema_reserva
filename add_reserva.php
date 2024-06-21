@@ -9,6 +9,7 @@
 
 require_once 'Backend/dao/ReservaDAO.php';
 require_once 'Backend/entity/Reserva.php';
+require_once "Backend/dao/EventoDAO.php";
 
 $reservaDAO = new ReservaDAO();
 $reserva = null;
@@ -35,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $reservaDAO->update($reserva);
         } else {
             $dias_semanaStr = implode(", ", $_POST['dias']);
-            $novaReserva = new Reserva(null, $_POST['status_sala'], $_POST['data_inicio'], $_POST['data_fim'], $_POST['horario_inicio'], $_POST['horario_fim'], $dias_semanaStr, 1, 1);
+            $novaReserva = new Reserva(null, $_POST['status_sala'], $_POST['data_inicio'], $_POST['data_fim'], $_POST['horario_inicio'], $_POST['horario_fim'], $dias_semanaStr, $_POST['evento_id'], $_POST['sala_id']);
             $reservaDAO->create($novaReserva);
         }
 
@@ -49,8 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 }
-?>
 
+?>
 
 
 <!DOCTYPE html>
@@ -67,11 +68,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <div class="container">
-        <h1 class="my-4">Detalhes do Contato</h1>
+        <?php if(isset($evento)) : ?>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Titulo: <?php echo $evento->getTitulo(); ?></h5>
+                <p class="card-text">Docente: <?php echo $evento->getDocente(); ?></p>
+                <p class="card-text">Oferta: <?php echo $evento->getOferta(); ?></p>
+                <a href="eventos_add.php?id=<?php echo $evento->getId(); ?>" class="btn btn-primary">Detalhes</a>
+            </div>
+        </div>
+        <?php endif ?>
+
+        <?php
+            if(isset($evento)) {
+                require_once "eventos_add.php";
+            }
+            
+        ?>  
+        <br>
+        <h3>Detalhes da Reserva</h3>
+        <br>
         <form action="add_reserva.php" method="POST">
             <input type="hidden" name="id" value="<?php echo $reserva ? $reserva->getId() : ''  ?>">
             <div class="card">
                 <div class="card-body">
+                    <div class="form-group" style="display: none;">
+                        <label for="evento_id">Evento id:</label>
+                        <input type="number" class="form-control" id="evento_id" name="evento_id" value="<?php echo $_GET['evento_id'] ? $_GET['evento_id'] : ''  ?>" required>
+                    </div>
                     <div class="form-group">
                         <label for="status_sala">status:</label>
                         <input type="text" class="form-control" id="status_sala" name="status_sala" value="<?php echo $reserva ? $reserva->getStatus_sala() : ''  ?>" required>
@@ -110,10 +134,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label for="dom">Dom:</label>
                             <input type="checkbox" class="form-control" id="dom" name="dias[]" value="1">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="evento_id">Evento id:</label>
-                        <input type="number" class="form-control" id="evento_id" name="evento_id" value="<?php echo $reserva ? $reserva->getEvento_id() : ''  ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="sala_id">Sala id:</label>
