@@ -10,11 +10,6 @@ $reserva = null;
 $eventoDAO = new EventoDAO();
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reserva_id'])) {
-    $reserva  = $reservaDAO->getById($_POST['reserva_id']);
-
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['save'])) {
         if (isset($_POST['id']) && !empty($_POST['id'])) {
