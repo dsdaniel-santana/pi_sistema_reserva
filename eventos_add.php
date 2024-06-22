@@ -16,8 +16,8 @@ include_once "../pi_sistema_reserva/Backend/entity/Evento.php";
 $eventoDAO = new EventoDAO();
 $evento = null;
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
-    $evento  = $eventoDAO->getById($_GET['id']);
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['evento_id'])) {
+    $evento  = $eventoDAO->getById($_GET['evento_id']);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -76,6 +76,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label for="titulo">Titulo do Evento:</label>
                         <!-- <label for="status_sala">status:</label> -->
                         <input type="text" class="form-control" id="titulo" name="titulo" value="<?php echo $evento ? $evento->getTitulo() : ''  ?>" required>
+                    </div>
+
+                    <div class="form-group" style="display: none;">
+                        <label for="reserva_id">Titulo do Evento:</label>
+                        <!-- <label for="status_sala">status:</label> -->
+                        <input type="text" class="form-control" id="reserva_id" name="reserva_id" value="<?php echo $_GET['reserva_id'] ? $_GET['reserva_id'] : ''  ?>" required>
                     </div>
 
                     <div class="form-group">
