@@ -39,7 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $evento = $eventoDAO->getByOferta($_POST['oferta']);
-        header("Location: add_reserva.php?evento_id=" . $evento->getId());
+        header("Location: add_reserva.php?evento_id=" . $evento->getId() . "&reserva_id=" . $_POST['reserva_id']);
+        
         exit();
     }
 
