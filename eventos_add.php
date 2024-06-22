@@ -44,8 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    if (isset($_POST['delete']) && isset($_POST['id'])) {
-        $eventoDAO->delete($_POST['id']);
+    $evento = $eventoDAO->getByOferta($_POST['oferta']);
+
+    if (isset($_POST['delete']) && $evento->getId()) {
+        $eventoDAO->delete($evento->getId());
         header('Location: index.php');
         exit;
     }
@@ -105,9 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
                     <button type="submit" name="save" class="btn btn-success">Salvar</button>
-                    <?php if ($evento) : ?>
-                        <button type="submit" name="delete" class="btn btn-danger">Excluir</button>
-                    <?php endif ?>
                     <a href="eventos.php" class="btn btn-secondary">Voltar</a>
                 </div>
             </div>
