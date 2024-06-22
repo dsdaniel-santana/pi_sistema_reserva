@@ -144,6 +144,7 @@ class EventoDAO implements BaseDAO {
             $stmt->bindParam(':id', $id);
             $stmt->execute();
 
+            return true;
         } catch (PDOException $e) {
             return false;
         }

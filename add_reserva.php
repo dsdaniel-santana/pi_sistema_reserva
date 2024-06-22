@@ -1,12 +1,5 @@
 <?php
 
-// session_start(); // Inicia uma sessão na página
-
-// if(!isset($_SESSION['token'])) {
-//     header('Location: auth.php');
-//     exit();
-// }
-
 require_once 'Backend/dao/ReservaDAO.php';
 require_once 'Backend/entity/Reserva.php';
 require_once "Backend/dao/EventoDAO.php";
@@ -16,9 +9,45 @@ $reserva = null;
 
 $eventoDAO = new EventoDAO();
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
-    $reserva = $reservaDAO->getById($_GET['id']);
-    $evento = $eventoDAO->getById($_GET['evento_id']);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reserva_id'])) {
+    $reserva  = $reservaDAO->getById($_POST['reserva_id']);
+
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['save'])) {
+        if (isset($_POST['id']) && !empty($_POST['id'])) {
+            $reserva  = $reservaDAO->getById($_POST['id']);
+            $dias_semanaStr = implode(", ", $_POST['dias']);
+
+            $reserva->setStatus_sala($_POST['status_sala']);
+            $reserva->setData_inicio($_POST['data_inicio']);
+            $reserva->setData_fim($_POST['data_fim']);
+            $reserva->setHorario_inicio($_POST['horario_inicio']);
+            $reserva->setHoraio_fim($_POST['horario_fim']);
+            $reserva->setDias_semana($dias_semanaStr);
+            $reserva->setEvento_id($_POST['evento_id']);
+            $reserva->setSala_id($_POST['sala_id']);
+
+            $reservaDAO->update($reserva);
+        } else {
+            $dias_semanaStr = implode(", ", $_POST['dias']);
+            $novaReserva = new Reserva(null, $_POST['status_sala'], $_POST['data_inicio'], $_POST['data_fim'], $_POST['horario_inicio'], $_POST['horario_fim'], $dias_semanaStr, $_POST['evento_id'], $_POST['sala_id']);
+            $reservaDAO->create($novaReserva);
+        }
+
+        header('Location: index.php');
+        exit;
+    }
+
+    if (isset($_POST['delete']) && isset($_POST['id'])) {
+        $reservaDAO->delete($_POST['id']);
+        header('Location: index.php');
+        exit;
+    }
+}
+
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -75,12 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <div class="container">
-        <?php
-            if (isset($evento)) {
-                require_once "eventos_add.php";
-            }
-        ?>  
-        <br>
+
         <h3>Detalhes da Reserva</h3>
         <br>
         <form action="add_reserva.php" method="POST">
