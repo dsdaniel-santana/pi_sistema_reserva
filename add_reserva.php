@@ -1,12 +1,4 @@
 <?php
-
-//session_start(); // Inicia uma sessão na página
-
-// if(!isset($_SESSION['token'])) {
-//     header('Location: auth.php');
-//     exit();
-// }
-
 require_once 'Backend/dao/ReservaDAO.php';
 require_once 'Backend/entity/Reserva.php';
 require_once "Backend/dao/EventoDAO.php";
@@ -16,8 +8,8 @@ $reserva = null;
 
 $eventoDAO = new EventoDAO();
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
-    $reserva  = $reservaDAO->getById($_GET['id']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reserva_id'])) {
+    $reserva  = $reservaDAO->getById($_POST['reserva_id']);
     $evento  = $eventoDAO->getById($_GET['evento_id']);
 }
 
@@ -72,13 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="container">
         
-        <?php
-            if(isset($evento)) {
-                require_once "eventos_add.php";
-            }
-            
-        ?>  
-        <br>
         <h3>Detalhes da Reserva</h3>
         <br>
         <form action="add_reserva.php" method="POST">

@@ -49,7 +49,6 @@
           <div class="navbar-nav">
             <a class="nav-link active" aria-current="page" href="mapao.php"><b>Mapa</b></a>
             <a class="nav-link" href="index.php"><b>Reserva</b></a>
-            <a class="nav-link" href="eventos.php"><b>Eventos</b></a>
             <a class="nav-link" href="sala.php"><b>Salas</b></a>
             <a class="nav-link" href="tipo.php"><b>Labs</b></a>
             <a class="nav-link" href="login.php"><b>Login</b></a>
