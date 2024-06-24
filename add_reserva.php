@@ -22,37 +22,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reserva_id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['save'])) {
-        if (isset($_POST['id']) && !empty($_POST['id'])) {
-            $reserva  = $reservaDAO->getById($_POST['id']);
-            $dias_semanaStr = implode(", ", $_POST['dias']);
+        $dias_semanaStr = implode(", ", $_POST['dias']);
+        $data_inicio = $_POST['data_inicio'];
+        $data_fim = $_POST['data_fim'];
+        $horario_inicio = $_POST['horario_inicio'];
+        $horario_fim = $_POST['horario_fim'];
+        $sala_id = $_POST['sala_id'];
 
-            $reserva->setStatus_sala($_POST['status_sala']);
-            $reserva->setData_inicio($_POST['data_inicio']);
-            $reserva->setData_fim($_POST['data_fim']);
-            $reserva->setHorario_inicio($_POST['horario_inicio']);
-            $reserva->setHoraio_fim($_POST['horario_fim']);
-            $reserva->setDias_semana($dias_semanaStr);
-            $reserva->setEvento_id($_POST['evento_id']);
-            $reserva->setSala_id($_POST['sala_id']);
-
-            $reservaDAO->update($reserva);
+        if ($reservaDAO->isConflict($data_inicio, $data_fim, $horario_inicio, $horario_fim, $sala_id)) {
+            echo "<div class='alert alert-danger' role='alert'>Já existe uma reserva para este horário e sala.</div>";
         } else {
-            $dias_semanaStr = implode(", ", $_POST['dias']);
-            $novaReserva = new Reserva(null, $_POST['status_sala'], $_POST['data_inicio'], $_POST['data_fim'], $_POST['horario_inicio'], $_POST['horario_fim'], $dias_semanaStr, $_POST['evento_id'], $_POST['sala_id']);
-            $reservaDAO->create($novaReserva);
+            if (isset($_POST['id']) && !empty($_POST['id'])) {
+                $reserva  = $reservaDAO->getById($_POST['id']);
+                $dias_semanaStr = implode(", ", $_POST['dias']);
+    
+                $reserva->setStatus_sala($_POST['status_sala']);
+                $reserva->setData_inicio($_POST['data_inicio']);
+                $reserva->setData_fim($_POST['data_fim']);
+                $reserva->setHorario_inicio($_POST['horario_inicio']);
+                $reserva->setHoraio_fim($_POST['horario_fim']);
+                $reserva->setDias_semana($dias_semanaStr);
+                $reserva->setEvento_id($_POST['evento_id']);
+                $reserva->setSala_id($_POST['sala_id']);
+    
+                $reservaDAO->update($reserva);
+            } else {
+                $dias_semanaStr = implode(", ", $_POST['dias']);
+                $novaReserva = new Reserva(null, $_POST['status_sala'], $_POST['data_inicio'], $_POST['data_fim'], $_POST['horario_inicio'], $_POST['horario_fim'], $dias_semanaStr, $_POST['evento_id'], $_POST['sala_id']);
+                $reservaDAO->create($novaReserva);
+            }
+    
+            header('Location: index.php');
+            exit;
         }
-
-        header('Location: index.php');
-        exit;
     }
-
-    if (isset($_POST['delete']) && isset($_POST['id'])) {
-        $reservaDAO->delete($_POST['id']);
-        header('Location: index.php');
-        exit;
-    }
+    
+        if (isset($_POST['delete']) && isset($_POST['id'])) {
+            $reservaDAO->delete($_POST['id']);
+            header('Location: index.php');
+            exit;
+        }
+             
+    
 }
-
 ?>
 
 
