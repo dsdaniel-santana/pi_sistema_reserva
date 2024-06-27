@@ -184,5 +184,25 @@
                 return false;
             }
         }
+
+        public function getConflictingReservations($data_inicio, $data_fim, $horario_inicio, $horario_fim, $sala_id) {
+            try {
+                $sql = "SELECT * FROM reserva WHERE sala_ID = :sala_id AND 
+                        (data_inicio <= :data_fim AND data_fim >= :data_inicio) AND 
+                        (horario_inicio < :horario_fim AND horario_fim > :horario_inicio)";
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(':sala_id', $sala_id, PDO::PARAM_INT);
+                $stmt->bindParam(':data_inicio', $data_inicio);
+                $stmt->bindParam(':data_fim', $data_fim);
+                $stmt->bindParam(':horario_inicio', $horario_inicio);
+                $stmt->bindParam(':horario_fim', $horario_fim);
+                $stmt->execute();
+                $conflitos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $conflitos;
+            } catch (PDOException $e) {
+                return [];
+            }
+        }
+        
     }
 ?>

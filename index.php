@@ -18,7 +18,7 @@ $salas = $salaDAO->getAll();
 
     <div class="container">
         <h1 class="my-4">Lista de Reservas</h1>
-        <a href="eventos_add.php" class="btn btn-primary mb-4">Adicionar Contato</a>
+        <a href="eventos_add.php" class="btn btn-primary mb-4">Adicionar Reserva</a>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php foreach ($reservas as $reserva) : ?>
                 <?php

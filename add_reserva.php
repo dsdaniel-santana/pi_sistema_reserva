@@ -30,7 +30,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sala_id = $_POST['sala_id'];
 
         if ($reservaDAO->isConflict($data_inicio, $data_fim, $horario_inicio, $horario_fim, $sala_id)) {
+            $conflitos = $reservaDAO->getConflictingReservations($data_inicio, $data_fim, $horario_inicio, $horario_fim, $sala_id);
+            
             echo "<div class='alert alert-danger' role='alert'>Já existe uma reserva para este horário e sala.</div>";
+            
+            foreach ($conflitos as $conflito) {
+                $evento = $eventoDAO->getById($conflito['evento_ID']);
+                $nomeDocente = $evento->getDocente();
+                echo "<div class='alert alert-danger' role='alert'>
+                                                                    Data do Conflito: " . $conflito['data_inicio'] . 
+                                                                    ",<br> Horário: " . $conflito['horario_inicio'] . " até " . $conflito['horario_fim'] . 
+                                                                    ",<br> Dia inicial: " . $conflito['data_inicio'] .
+                                                                    ",<br> Data final: " . $conflito['data_fim'] .
+                                                                    ",<br>Evento: " . $conflito['evento_ID'] .
+                                                                    ",<br>Número da Sala: " . $conflito['sala_ID'] .
+                                                                    ",<br>Nome do Docente: " . $nomeDocente . "</div>";
+                                                                    
+            }
+            
         } else {
             if (isset($_POST['id']) && !empty($_POST['id'])) {
                 $reserva  = $reservaDAO->getById($_POST['id']);
@@ -94,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="number" class="form-control" id="evento_id" name="evento_id" value="<?php echo $_GET['evento_id'] ? $_GET['evento_id'] : ''  ?>" required>
                     </div>
                     <div class="form-group">
-                        <label for="status_sala">status:</label>
+                        <label for="status_sala">Status:</label>
                         <input type="text" class="form-control" id="status_sala" name="status_sala" value="<?php echo $reserva ? $reserva->getStatus_sala() : ''  ?>" required>
                     </div>
                     <div class="form-group">
