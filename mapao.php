@@ -12,7 +12,7 @@ $eventoDAO = new EventoDAO();
 $evento = $eventoDAO->getById(1);
 
 $reservaDAO = new ReservaDAO();
-$reserva = $reservaDAO->getById(2);
+$reserva = $reservaDAO->getById(3);
 
 $mapao = $reservaDAO->listarSalas(1);
 

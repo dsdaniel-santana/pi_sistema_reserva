@@ -12,9 +12,13 @@
 
     }
 
-    .navbar-nav a{
-        color: black;
-        transition: .3s ease;
+
+
+    .navbar-nav a {
+      width: 100%;
+      color: black;
+      font-size: 1.2rem;
+      transition: .3s ease;
     }
 
     .navbar-nav a:hover {
@@ -24,6 +28,7 @@
     .fa-bars {
       margin-top: 5px;
     }
+
     footer {
       background-color: #ddd;
       color: #333;
@@ -47,11 +52,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-link active" aria-current="page" href="mapao.php"><b>Mapa</b></a>
-            <a class="nav-link" href="index.php"><b>Reserva</b></a>
-            <a class="nav-link" href="sala.php"><b>Salas</b></a>
-            <a class="nav-link" href="tipo.php"><b>Labs</b></a>
-            <a class="nav-link" href="login.php"><b>Login</b></a>
+            <a class="nav-link active" aria-current="page" href="mapao.php">Mapa</a>
+            <a class="nav-link" href="index.php">Reserva</a>
+            <a class="nav-link" href="sala.php">Salas</a>
+            <a class="nav-link" href="tipo.php">Labs</a>
+            <a class="nav-link" href="login.php">Login</a>
           </div>
         </div>
       </div>
