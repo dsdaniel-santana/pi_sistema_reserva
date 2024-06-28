@@ -8,6 +8,18 @@ require_once "Backend/dao/SalaDAO.php";
 $mapaoDAO = new ReservaDAO();
 $mapao = $mapaoDAO->listarSalas("2024-06-27", "20:00:00", "22:00:00");
 
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if($_POST['save']) {
+        $data = $_POST['data'];
+        $horario_inicio = $_POST['horario_inicio'];
+        $horario_fim = $_POST['horario_fim'];
+
+        $mapao = $mapaoDAO->listarSalas($data, $horario_inicio, $horario_fim);
+    } else {
+        $mapao = $mapaoDAO->listarSalas("2024-06-27", "20:00:00", "22:00:00");
+    }
+}
+
 ?>
 <?php
 require_once "Frontend/template/header.php";
@@ -31,7 +43,7 @@ require_once "Frontend/template/header.php";
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="data_inicio">Data: </label>
-                                    <input type="date" class="form-control" name="data_inicio" require>
+                                    <input type="date" class="form-control" name="data" require>
                                 </div>
 
                                 <div class="form-group">
