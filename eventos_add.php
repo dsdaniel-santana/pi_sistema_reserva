@@ -39,17 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $evento = $eventoDAO->getByOferta($_POST['oferta']);
-        if($evento && $reserva) {
-            header("Location: add_reserva.php?evento_id=" . $evento->getId() . "&reserva_id=" . $_POST['reserva_id']);
-        
+        if($evento) {
+            header("Location: add_reserva.php?evento_id=" . $evento->getId() . "&reserva_id=" . $_POST['reserva_id'] );
              exit();
-        } else {
-            echo "<p>Esse ja evento não existe</p>";
         }
         
     }
 
-    $evento = $eventoDAO->getByOferta($_POST['oferta']);
 
     if (isset($_POST['delete']) && $evento->getId()) {
         $eventoDAO->delete($evento->getId());
