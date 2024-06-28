@@ -148,23 +148,31 @@
             }
         }
 
-        public function listarSalas($id) {
+        public function listarSalas($data, $horario_inicio, $horario_fim) {
             try {
-                $sql = "SELECT sala.numero, evento.titulo, reserva.horario_inicio, reserva.horario_fim, evento.docente FROM reserva 
-                        LEFT JOIN sala on reserva.sala_ID = sala.id
-                        LEFT JOIN evento on evento_ID = evento.id
-                        WHERE sala_id = :id";
-
+                $sql = "SELECT sala.numero, evento.titulo, reserva.horario_inicio, reserva.horario_fim, evento.docente 
+                        FROM reserva 
+                        LEFT JOIN sala ON reserva.sala_ID = sala.id
+                        LEFT JOIN evento ON reserva.evento_ID = evento.id
+                        WHERE :data BETWEEN reserva.data_inicio AND reserva.data_fim
+                          AND (:horario_inicio BETWEEN reserva.horario_inicio AND reserva.horario_fim
+                               OR :horario_fim BETWEEN reserva.horario_inicio AND reserva.horario_fim
+                               OR (reserva.horario_inicio >= :horario_inicio AND reserva.horario_fim <= :horario_fim));
+                       ";
+        
                 $stmt = $this->db->prepare($sql);
-                $stmt->bindParam(':id', $id);
+                $stmt->bindParam(':data', $data);
+                $stmt->bindParam(':horario_inicio', $horario_inicio);
+                $stmt->bindParam(':horario_fim', $horario_fim);
                 $stmt->execute();
                 $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-               return $reservas;
-            } catch(PDOException $e) {
+        
+                return $reservas;
+            } catch (PDOException $e) {
                 return false;
             }
         }
+        
 
         public function isConflict($data_inicio, $data_fim, $horario_inicio, $horario_fim, $sala_id) {
             try {
