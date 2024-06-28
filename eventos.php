@@ -27,7 +27,7 @@ $eventos = $eventoDAO->getAll();
                             <h5 class="card-title">Sigla: <?php echo $evento->getSigla(); ?></h5>
                             <p class="card-text">Docente: <?php echo $evento->getDocente(); ?></p>
                             <p class="card-text">Oferta: <?php echo $evento->getOferta(); ?></p>                            
-                            <a href="eventos_add.php?evento_id=<?php echo $evento->getId(); ?>" class="btn btn-primary">Detalhes</a>
+                            <a href="eventos_reservas.php?evento_id=<?php echo $evento->getId(); ?>" class="btn btn-primary">Detalhes</a>
                         </div>
                     </div>
                 </div>

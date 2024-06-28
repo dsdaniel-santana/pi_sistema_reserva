@@ -61,6 +61,32 @@
         }
 
 
+        public function getbyEvento_id($evento_ID) {
+            try {
+                $sql = "SELECT * FROM reserva WHERE evento_ID = :evento_id";
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(':evento_id', $evento_ID);
+                $stmt->execute();
+
+                $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                return array_map(function ($reserva) {
+                    return new Reserva($reserva['id'],
+                                        $reserva['status_sala'],
+                                        $reserva['data_inicio'],
+                                        $reserva['data_fim'],
+                                        $reserva['horario_inicio'],
+                                        $reserva['horario_fim'],
+                                        $reserva['dias_semana'],
+                                        $reserva['evento_ID'],
+                                        $reserva['sala_ID']);
+                                    }, $reservas);
+            } catch (PDOException $e) {
+                return false;
+            }
+        }
+
+
         public function create($reserva) {
             try {
                 $sql = "INSERT INTO reserva (status_sala, data_inicio, data_fim, horario_inicio, horario_fim, dias_semana,evento_ID, sala_ID) VALUES

@@ -76,14 +76,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $reservaDAO->create($novaReserva);
             }
     
-            header('Location: index.php');
+            header('Location: eventos.php');
             exit;
         }
     }
     
         if (isset($_POST['delete']) && isset($_POST['id'])) {
             $reservaDAO->delete($_POST['id']);
-            header('Location: index.php');
+            header('Location: eventos.php');
             exit;
         }
              

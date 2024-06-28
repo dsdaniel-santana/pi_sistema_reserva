@@ -7,6 +7,10 @@
   <title>Sistema Reserva de Salas</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
+
+    body {
+      min-height: calc(100vh - 100px);
+    }
     nav {
       min-height: 70px;
 
@@ -54,7 +58,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-link active" aria-current="page" href="mapao.php">Mapa</a>
-            <a class="nav-link" href="index.php">Reserva</a>
+            <a class="nav-link" href="eventos.php">Eventos</a>
             <a class="nav-link" href="sala.php">Salas</a>
             <a class="nav-link" href="tipo.php">Labs</a>
             <a class="nav-link" href="login.php">Login</a>
