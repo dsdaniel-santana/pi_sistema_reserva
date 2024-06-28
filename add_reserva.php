@@ -31,8 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $horario_fim = $_POST['horario_fim'];
         $sala_id = $_POST['sala_id'];
 
-        if ($reservaDAO->isConflict($data_inicio, $data_fim, $horario_inicio, $horario_fim, $sala_id)) {
-            $conflitos = $reservaDAO->getConflictingReservations($data_inicio, $data_fim, $horario_inicio, $horario_fim, $sala_id);
+        if ($reservaDAO->isConflict($data_inicio, $data_fim, $horario_inicio, $horario_fim, $sala_id, $dias_semanaStr)) {
+            $conflitos = $reservaDAO->getConflictingReservations($data_inicio, $data_fim, $horario_inicio, $horario_fim, $sala_id, $dias_semanaStr);
             
             echo "<div class='alert alert-danger' role='alert'>Já existe uma reserva para este horário e sala.</div>";
             
