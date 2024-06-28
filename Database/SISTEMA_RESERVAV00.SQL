@@ -11,8 +11,9 @@ USE sistema_reserva;
 CREATE TABLE IF NOT EXISTS evento (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(200) NOT NULL,
+    sigla VARCHAR(30) NOT NULL UNIQUE,
     docente VARCHAR(100) DEFAULT NULL,
-    oferta VARCHAR(50) NOT NULL
+    oferta VARCHAR(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS tipo (
@@ -32,8 +33,8 @@ CREATE TABLE IF NOT EXISTS sala (
 CREATE TABLE IF NOT EXISTS reserva (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     status_sala ENUM("Livre","Reservado","Em Manutenção"),
-	data_inicio DATE DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    data_fim DATE DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	data_inicio DATE NOT NULL,
+    data_fim DATE NOT NULL,
     horario_inicio TIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     horario_fim TIME NOT NULL,
     dias_semana VARCHAR(30) NOT NULL,
@@ -43,17 +44,11 @@ CREATE TABLE IF NOT EXISTS reserva (
     FOREIGN KEY (sala_ID) REFERENCES sala(id)
 );
 
-INSERT INTO tipo (id, tipo_sala) VALUES 
-	(null, "lab. Informática"),
-    (null, "Atrio");
-    
-INSERT INTO sala (numero, capacidade, andar, tipo_ID) VALUES 
-	("18", 45, 1, 1);
-    
-INSERT INTO evento (titulo, docente, oferta) VALUES 
-	("Técnico em Informatica Para Internet", "Aecio", "295465");
-
-INSERT INTO reserva (status_sala, data_inicio, data_fim, horario_inicio, horario_fim, dias_semana, evento_ID, sala_ID) VALUES 
-	("Reservado", "2024-03-06", "2024-05-24", "19:00:56", "22:30:34", "2-3-4-5-6", 1, 1);
-
+CREATE TABLE IF NOT EXISTS usuario (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    senha VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    token VARCHAR(255) DEFAULT NULL
+);
 
