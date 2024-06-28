@@ -157,7 +157,8 @@
                         WHERE :data BETWEEN reserva.data_inicio AND reserva.data_fim
                           AND (:horario_inicio BETWEEN reserva.horario_inicio AND reserva.horario_fim
                                OR :horario_fim BETWEEN reserva.horario_inicio AND reserva.horario_fim
-                               OR (reserva.horario_inicio >= :horario_inicio AND reserva.horario_fim <= :horario_fim));
+                               OR (reserva.horario_inicio >= :horario_inicio AND reserva.horario_fim <= :horario_fim))
+                               ORDER BY sala.numero ASC;
                        ";
         
                 $stmt = $this->db->prepare($sql);

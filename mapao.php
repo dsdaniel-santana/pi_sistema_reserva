@@ -8,14 +8,6 @@ require_once "Backend/dao/SalaDAO.php";
 $mapaoDAO = new ReservaDAO();
 $mapao = $mapaoDAO->listarSalas("2024-06-27", "20:00:00", "22:00:00");
 
-
-
-print_r($mapao);
-
-
-//print_r($mapao)
-
-
 ?>
 <?php
 require_once "Frontend/template/header.php";
