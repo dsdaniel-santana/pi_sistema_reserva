@@ -14,7 +14,8 @@ session_start(); // Inicia uma sessão na página
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
     body {
-      min-height: calc(100vh - 100px);
+      min-height: 100vh;
+      margin-bottom: 200px;
     }
 
     nav {
@@ -22,7 +23,16 @@ session_start(); // Inicia uma sessão na página
 
     }
 
+    .form-select {
+      width: 100%;
+    }
 
+    #btnLogout {
+      background-color: #fff;
+      border: none;
+      font-size: 1.2rem;
+      margin-top: 7px;
+    }
 
     .navbar-nav a {
       width: 100%;

@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <p class="card-text"><b>Horario Inicio:</b> <?php echo htmlspecialchars($reserva ? $reserva->getHorario_inicio() : '', ENT_QUOTES, 'UTF-8'); ?></p>
                             <p class="card-text"><b>Horario Fim:</b> <?php echo htmlspecialchars($reserva ? $reserva->getHoraio_fim() : '', ENT_QUOTES, 'UTF-8'); ?></p>
                             <p class="card-text"><b>Dias da Semana:</b> <?php echo htmlspecialchars($reserva ? $reserva->getDias_semana() : '', ENT_QUOTES, 'UTF-8'); ?></p>
-                            <a href="eventos_add.php?reserva_id=<?php echo $reserva->getId(); ?>&evento_id=<?php echo $reserva->getEvento_id(); ?>" class="btn btn-primary">Detalhes</a>
+                            <a href="add_reserva.php?reserva_id=<?php echo $reserva->getId(); ?>&evento_id=<?php echo $reserva->getEvento_id(); ?>" class="btn btn-primary">Detalhes</a>
                         </div>
                     </div>
                 </div>

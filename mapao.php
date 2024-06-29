@@ -6,7 +6,7 @@ require_once "Backend/dao/EventoDAO.php";
 require_once "Backend/dao/SalaDAO.php";
 
 $mapaoDAO = new ReservaDAO();
-$mapao = $mapaoDAO->listarSalas("2024-06-27", "20:00:00", "22:00:00");
+$mapao = $mapaoDAO->listarSalas(date("y-m-d"), date("H:m:s"), date("H:m:s"));
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if($_POST['save']) {
@@ -16,7 +16,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $mapao = $mapaoDAO->listarSalas($data, $horario_inicio, $horario_fim);
     } else {
-        $mapao = $mapaoDAO->listarSalas("2024-06-27", "20:00:00", "22:00:00");
+        //$mapao = $mapaoDAO->listarSalas("2024-06-27", "20:00:00", "22:00:00");
     }
 }
 
@@ -26,6 +26,7 @@ require_once "Frontend/template/header.php";
 ?>
 
 <body>
+    <div class="container">
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Filtrar
     </button>
@@ -92,7 +93,8 @@ require_once "Frontend/template/header.php";
         </tbody>
     </table>
     </div>
-
+    </div>
+   
     <?php
     require_once "Frontend/template/footer.php";
     ?>

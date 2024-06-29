@@ -2,7 +2,7 @@
 
 session_start(); // Inicia uma sessão na página
 
-if(!isset($_SESSION['token'])) {
+if (!isset($_SESSION['token'])) {
     header("Location: ./login.php");
     exit();
 }
@@ -10,6 +10,11 @@ if(!isset($_SESSION['token'])) {
 require_once 'Backend/dao/ReservaDAO.php';
 require_once 'Backend/entity/Reserva.php';
 require_once "Backend/dao/EventoDAO.php";
+
+require_once "Backend/dao/salaDAO.php";
+
+$salasDAO = new SalaDAO();
+$salas = $salasDAO->getAll();
 
 $reservaDAO = new ReservaDAO();
 $reserva = null;
@@ -19,18 +24,17 @@ $eventoDAO = new EventoDAO();
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['reserva_id'])) {
     $reserva  = $reservaDAO->getById($_GET['reserva_id']);
 
-    
+
     //$evento  = $eventoDAO->getById($_GET['evento_id']);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reserva_id'])) {
     $reserva  = $reservaDAO->getById($_POST['reserva_id']);
-
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['save'])) {
-        if(isset($_POST['dias'])){
+        if (isset($_POST['dias'])) {
             $dias_semanaStr = implode(", ", $_POST['dias']);
         }
         $data_inicio = $_POST['data_inicio'];
@@ -41,27 +45,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($reservaDAO->isConflict($data_inicio, $data_fim, $horario_inicio, $horario_fim, $sala_id, $dias_semanaStr)) {
             $conflitos = $reservaDAO->getConflictingReservations($data_inicio, $data_fim, $horario_inicio, $horario_fim, $sala_id, $dias_semanaStr);
-            
+
             echo "<div class='alert alert-danger' role='alert'>Já existe uma reserva para este horário e sala.</div>";
-            
+
             foreach ($conflitos as $conflito) {
                 $evento = $eventoDAO->getById($conflito['evento_ID']);
                 $nomeDocente = $evento->getDocente();
                 echo "<div class='alert alert-danger' role='alert'>
-                                                                    Data do Conflito: " . $conflito['data_inicio'] . 
-                                                                    ",<br> Horário: " . $conflito['horario_inicio'] . " até " . $conflito['horario_fim'] . 
-                                                                    ",<br> Dia inicial: " . $conflito['data_inicio'] .
-                                                                    ",<br> Data final: " . $conflito['data_fim'] .
-                                                                    ",<br>Evento: " . $conflito['evento_ID'] .
-                                                                    ",<br>Número da Sala: " . $conflito['sala_ID'] .
-                                                                    ",<br>Nome do Docente: " . $nomeDocente . "</div>";
-                                                                    
+                                                                    Data do Conflito: " . $conflito['data_inicio'] .
+                    ",<br> Horário: " . $conflito['horario_inicio'] . " até " . $conflito['horario_fim'] .
+                    ",<br> Dia inicial: " . $conflito['data_inicio'] .
+                    ",<br> Data final: " . $conflito['data_fim'] .
+                    ",<br>Evento: " . $conflito['evento_ID'] .
+                    ",<br>Número da Sala: " . $conflito['sala_ID'] .
+                    ",<br>Nome do Docente: " . $nomeDocente . "</div>";
             }
         } else {
             if (isset($_POST['id']) && !empty($_POST['id'])) {
                 $reserva  = $reservaDAO->getById($_POST['id']);
                 $dias_semanaStr = implode(", ", $_POST['dias']);
-    
+
                 $reserva->setStatus_sala($_POST['status_sala']);
                 $reserva->setData_inicio($_POST['data_inicio']);
                 $reserva->setData_fim($_POST['data_fim']);
@@ -70,32 +73,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $reserva->setDias_semana($dias_semanaStr);
                 $reserva->setEvento_id($_POST['evento_id']);
                 $reserva->setSala_id($_POST['sala_id']);
-    
+
                 $reservaDAO->update($reserva);
             } else {
-                if(isset($_POST['dias'])){
+                if (isset($_POST['dias'])) {
                     $dias_semanaStr = implode(", ", $_POST['dias']);
                 } else {
                     echo "<p>Insira os dias da semana</p>";
                     return;
                 }
-                
+
                 $novaReserva = new Reserva(null, $_POST['status_sala'], $_POST['data_inicio'], $_POST['data_fim'], $_POST['horario_inicio'], $_POST['horario_fim'], $dias_semanaStr, $_POST['evento_id'], $_POST['sala_id']);
                 $reservaDAO->create($novaReserva);
             }
-    
+
             header('Location: eventos.php');
             exit;
         }
     }
-    
-        if (isset($_POST['delete']) && isset($_POST['id'])) {
-            $reservaDAO->delete($_POST['id']);
-            header('Location: eventos.php');
-            exit;
-        }
-             
-    
+
+    if (isset($_POST['delete']) && isset($_POST['id'])) {
+        $reservaDAO->delete($_POST['id']);
+        header('Location: eventos.php');
+        exit;
+    }
 }
 ?>
 
@@ -114,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <div class="container">
-        
+
         <h3>Detalhes da Reserva</h3>
         <br>
         <form action="add_reserva.php" method="POST">
@@ -164,9 +165,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input type="checkbox" class="form-control" id="dom" name="dias[]" value="1">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="sala_id">Sala id:</label>
-                        <input type="number" class="form-control" id="sala_id" name="sala_id" value="<?php echo $reserva ? $reserva->getSala_id() : ''  ?>" required>
+                    <div class="mb-3">
+                        <label for="sala_id" class="form-label">Salas: </label>
+                        <select style="width: 100%; padding: 5px; border-radius: 5px;" id="sala_id" name="sala_id" required>
+                            <?php foreach ($salas as $sala) : ?>
+                                <option value="<?php echo $sala->getId(); ?>"><?php echo $sala->getNumero(); ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <button type="submit" name="save" class="btn btn-success">Salvar</button>
                     <?php if ($reserva) : ?>
