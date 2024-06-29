@@ -41,13 +41,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $evento->setTitulo($_POST['titulo']);
             $evento->setSigla($_POST['sigla']);
-            $evento->setDocente($_POST['docente']);
             $evento->setOferta($_POST['oferta']);
 
 
             $eventoDAO->update($evento);
         } else {
-            $novoEvento = new Evento(null, $_POST['titulo'], $_POST['sigla'], $_POST['docente'], $_POST['oferta']);
+            $novoEvento = new Evento(null, $_POST['titulo'], $_POST['sigla'], $_POST['oferta']);
             $eventoDAO->create($novoEvento);
         }
 
@@ -107,12 +106,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <div class="form-group">
-                        <label for="docente">Docente:</label>
-                        <!-- <label for="status_sala">status:</label> -->
-                        <input type="text" class="form-control" id="docente" name="docente" value="<?php echo $evento ? $evento->getDocente() : ''  ?>" required>
-                    </div>
-
-                    <div class="form-group">
                         <label for="oferta">Oferta:</label>
                         <!-- <label for="status_sala">status:</label> -->
                         <input type="text" class="form-control" id="oferta" name="oferta" value="<?php echo $evento ? $evento->getOferta() : ''  ?>" required>
@@ -136,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-
+                        <p class="card-text"><b>Docente:</b> <?php echo htmlspecialchars($reserva ? $reserva->getDocente() : '', ENT_QUOTES, 'UTF-8'); ?></p>
                         <p class="card-text"><b>Data Inicio:</b> <?php echo htmlspecialchars($reserva ? $reserva->getData_inicio() : '', ENT_QUOTES, 'UTF-8'); ?></p>
                         <p class="card-text"><b>Data Fim:</b> <?php echo htmlspecialchars($reserva ? $reserva->getData_fim() : '', ENT_QUOTES, 'UTF-8'); ?></p>
                         <p class="card-text"><b>Horario Inicio:</b> <?php echo htmlspecialchars($reserva ? $reserva->getHorario_inicio() : '', ENT_QUOTES, 'UTF-8'); ?></p>

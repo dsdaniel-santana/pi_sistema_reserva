@@ -26,7 +26,6 @@ class EventoDAO implements BaseDAO {
                     $evento['id'],
                     $evento['titulo'] ?? null,
                     $evento['sigla'] ?? null,
-                    $evento['docente'] ?? null,
                     $evento['oferta'] ?? null
                 )
                 : null;
@@ -50,7 +49,6 @@ class EventoDAO implements BaseDAO {
                     $evento['id'],
                     $evento['titulo'] ?? null,
                     $evento['sigla'] ?? null,
-                    $evento['docente'] ?? null,
                     $evento['oferta'] ?? null
                 )
                 : null;
@@ -73,7 +71,6 @@ class EventoDAO implements BaseDAO {
                     $evento['id'],
                     $evento['titulo'] ?? null,
                     $evento['sigla'] ?? null,
-                    $evento['docente'] ?? null,
                     $evento['oferta'] ?? null
                 );
             }, $eventos);
@@ -84,18 +81,16 @@ class EventoDAO implements BaseDAO {
 
     public function create($evento) {
         try {
-            $sql = "INSERT INTO evento (titulo, sigla, docente, oferta) VALUES (:titulo, :sigla, :docente, :oferta)";
+            $sql = "INSERT INTO evento (titulo, sigla,  oferta) VALUES (:titulo, :sigla, :oferta)";
             $stmt = $this->db->prepare($sql);
 
             // Bind parameters by reference
             $titulo = $evento->getTitulo();
             $sigla = $evento->getSigla();
-            $docente = $evento->getDocente();
             $oferta = $evento->getOferta();
 
             $stmt->bindParam(':titulo', $titulo);
             $stmt->bindParam(':sigla', $sigla);
-            $stmt->bindParam(':docente', $docente);
             $stmt->bindParam(':oferta', $oferta);
 
             $stmt->execute();
@@ -113,20 +108,18 @@ class EventoDAO implements BaseDAO {
                 return false; // Retorna falso se o usuário não existir
             }
 
-            $sql = "UPDATE evento SET titulo = :titulo, sigla = :sigla, docente = :docente, oferta = :oferta WHERE id = :id";
+            $sql = "UPDATE evento SET titulo = :titulo, sigla = :sigla, oferta = :oferta WHERE id = :id";
             $stmt = $this->db->prepare($sql);
 
             // Bind parameters by reference
             $id = $evento->getId();
             $titulo = $evento->getTitulo();
             $sigla = $evento->getSigla();
-            $docente = $evento->getDocente();
             $oferta = $evento->getOferta();
 
             $stmt->bindParam(':id', $id);
             $stmt->bindParam(':titulo', $titulo);
             $stmt->bindParam(':sigla', $sigla);
-            $stmt->bindParam(':docente', $docente);
             $stmt->bindParam(':oferta', $oferta);
 
             $stmt->execute();

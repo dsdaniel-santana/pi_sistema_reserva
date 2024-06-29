@@ -44,7 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             foreach ($conflitos as $conflito) {
                 $evento = $eventoDAO->getById($conflito['evento_ID']);
-                $nomeDocente = $evento->getDocente();
                 echo "<div class='alert alert-danger' role='alert'>
                                                                     Data do Conflito: " . $conflito['data_inicio'] . 
                                                                     ",<br> Horário: " . $conflito['horario_inicio'] . " até " . $conflito['horario_fim'] . 
@@ -60,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $reserva  = $reservaDAO->getById($_POST['id']);
                 $dias_semanaStr = implode(", ", $_POST['dias']);
     
-                $reserva->setStatus_sala($_POST['status_sala']);
+                $reserva->setDocente($_POST['docente']);
                 $reserva->setData_inicio($_POST['data_inicio']);
                 $reserva->setData_fim($_POST['data_fim']);
                 $reserva->setHorario_inicio($_POST['horario_inicio']);
@@ -78,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     return;
                 }
                 
-                $novaReserva = new Reserva(null, $_POST['status_sala'], $_POST['data_inicio'], $_POST['data_fim'], $_POST['horario_inicio'], $_POST['horario_fim'], $dias_semanaStr, $_POST['evento_id'], $_POST['sala_id']);
+                $novaReserva = new Reserva(null, $_POST['docente'], $_POST['data_inicio'], $_POST['data_fim'], $_POST['horario_inicio'], $_POST['horario_fim'], $dias_semanaStr, $_POST['evento_id'], $_POST['sala_id']);
                 $reservaDAO->create($novaReserva);
             }
     
@@ -124,8 +123,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="number" class="form-control" id="evento_id" name="evento_id" value="<?php echo $_GET['evento_id'] ? $_GET['evento_id'] : ''  ?>" required>
                     </div>
                     <div class="form-group">
-                        <label for="status_sala">status:</label>
-                        <input type="text" class="form-control" id="status_sala" name="status_sala" value="<?php echo $reserva ? $reserva->getStatus_sala() : ''  ?>" required>
+                        <label for="docente">Docente:</label>
+                        <input type="text" class="form-control" id="docente" name="docente" value="<?php echo $reserva ? $reserva->getDocente() : ''  ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="data_inicio">Data Inicio:</label>
