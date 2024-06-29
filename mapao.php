@@ -9,14 +9,14 @@ $mapaoDAO = new ReservaDAO();
 $mapao = $mapaoDAO->listarSalas(date("y-m-d"), date("H:m:s"), date("H:m:s"));
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if($_POST['save']) {
+    if(isset($_POST['save'])) {
         $data = $_POST['data'];
         $horario_inicio = $_POST['horario_inicio'];
         $horario_fim = $_POST['horario_fim'];
 
         $mapao = $mapaoDAO->listarSalas($data, $horario_inicio, $horario_fim);
     } else {
-        //$mapao = $mapaoDAO->listarSalas("2024-06-27", "20:00:00", "22:00:00");
+        //$mapao = $mapaoDAO->listarSalas("2024-06-27", "00:00:00", "22:00:00");
     }
 }
 
@@ -43,16 +43,16 @@ require_once "Frontend/template/header.php";
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="data_inicio">Data: </label>
+                                    <label for="data">Data: </label>
                                     <input type="date" class="form-control" name="data" require>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="data_inicio">Horario Inicio: </label>
+                                    <label for="horario_inicio">Horario Inicio: </label>
                                     <input type="time" class="form-control" name="horario_inicio" require>
 
                                 </div>
-                                <label for="data_inicio">Horario Fim: </label>
+                                <label for="horario_fim">Horario Fim: </label>
                                 <input type="time" class="form-control" name="horario_fim" require>
                                 <br>
                                 <button type="submit" name="save" class="btn btn-success">Filtar</button>

@@ -21,8 +21,8 @@ $reserva = null;
 
 $eventoDAO = new EventoDAO();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reserva_id'])) {
-    $reserva  = $reservaDAO->getById($_POST['reserva_id']);
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['reserva_id'])) {
+    $reserva  = $reservaDAO->getById($_GET['reserva_id']);
 
 }
 
