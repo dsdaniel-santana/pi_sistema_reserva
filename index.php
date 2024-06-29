@@ -32,7 +32,6 @@ $salas = $salaDAO->getAll();
                         <div class="card-body">
                             <!-- Inserindo em telas os dados do Evento  -->
                             <h5 class="card-title"><b>Titulo:</b> <?php echo $evento? $evento->getTitulo() : ''; ?></h5>
-                            <p class="card-text"><b>Docente:</b> <?php echo $evento? $evento->getDocente() : ''; ?></p>
                             <p class="card-text"><b>Oferta:</b> <?php echo $evento? $evento->getOferta() : ''; ?></p>
                             <hr>
 

@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $evento = $eventoDAO->getByOferta($_POST['oferta']);
         if ($evento) {
-            header("Location: add_reserva.php?evento_id=" . $evento->getId() . "&reserva_id=" . $_POST['reserva_id']);
+            header("Location: eventos.php");
             exit();
         }
     }
@@ -121,10 +121,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h3>Reservas</h3>
         <br>
 
+
+
         <?php if (!$reservaEventoById) {
             echo "<h3>Este evento não contem reservas cadastradas</h3>";
             echo "<a href='add_reserva.php?evento_id=" . $_GET['evento_id'] . "'class='btn btn-primary'>Detalhes</a>";
         } ?>
+
+        <a href="add_reserva.php?evento_id=<?php echo $_GET['evento_id']?>" class="btn btn-primary mb-4">Add novo</a>
         <?php foreach ($reservaEventoById as $reserva) : ?>
             <div class="col">
                 <div class="card">

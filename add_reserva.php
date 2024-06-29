@@ -50,8 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                                     ",<br> Dia inicial: " . $conflito['data_inicio'] .
                                                                     ",<br> Data final: " . $conflito['data_fim'] .
                                                                     ",<br>Evento: " . $conflito['evento_ID'] .
-                                                                    ",<br>Número da Sala: " . $conflito['sala_ID'] .
-                                                                    ",<br>Nome do Docente: " . $nomeDocente . "</div>";
+                                                                    ",<br>Número da Sala: " . $conflito['sala_ID'] . "</div>";
                                                                     
             }
         } else {
