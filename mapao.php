@@ -27,7 +27,7 @@ require_once "Frontend/template/header.php";
 
 <body>
     <div class="container">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button style="margin-top: 2rem; margin-bottom: 2rem;" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Filtrar
     </button>
 
@@ -70,7 +70,7 @@ require_once "Frontend/template/header.php";
 
     <h1>Mapa de salas</h1>
 
-    <table class="table table-striped">
+    <table style="background-color: #fff;" class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">Sala</th>

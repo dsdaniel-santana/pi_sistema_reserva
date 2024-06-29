@@ -26,7 +26,7 @@ require_once "Frontend/template/header.php";
                         <h5 class="card-title">Titulo: <?php echo $evento->getTitulo(); ?></h5>
                         <h5 class="card-title">Sigla: <?php echo $evento->getSigla(); ?></h5>
                         <p class="card-text">Oferta: <?php echo $evento->getOferta(); ?></p>
-                        <a href="eventos_reservas.php?evento_id=<?php echo $evento->getId(); ?>" class="btn btn-primary">Detalhes</a>
+                        <a href="eventos_reservas.php?evento_id=<?php echo $evento->getId(); ?>" class="btn btn-primary">Editar <i class="fa-solid fa-pen"></i></a>
                     </div>
                 </div>
             </div>

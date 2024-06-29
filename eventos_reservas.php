@@ -66,18 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes da Reserva</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-
-
+<?php
+    require_once "Frontend/template/header.php";
+?>
 
 <body>
     <div class="container">
@@ -112,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
 
-                    <button type="submit" name="save" class="btn btn-success">Salvar</button>
+                    <button type="submit" name="save" class="btn btn-success">Salvar <i class="fa-solid fa-cloud"></i></button>
                     <a href="eventos.php" class="btn btn-secondary">Voltar</a>
                 </div>
             </div>
@@ -147,6 +138,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </body>
 
+<?php
+    require_once "Frontend/template/footer.php";
+?>
 
 
 
