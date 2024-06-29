@@ -1,11 +1,11 @@
 <?php
 
-//session_start(); // Inicia uma sessão na página
+session_start(); // Inicia uma sessão na página
 
-// if(!isset($_SESSION['token'])) {
-//     header('Location: auth.php');
-//     exit();
-// }
+if(!isset($_SESSION['token'])) {
+    header("Location: ./login.php");
+    exit();
+}
 
 include_once "../pi_sistema_reserva/Backend/config/Database.php";
 include_once "../pi_sistema_reserva/Backend/dao/EventoDAO.php";

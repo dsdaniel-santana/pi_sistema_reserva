@@ -1,4 +1,12 @@
 <?php
+
+session_start(); // Inicia uma sessão na página
+
+if(!isset($_SESSION['token'])) {
+    header("Location: ./login.php");
+    exit();
+}
+
 require_once 'Backend/dao/ReservaDAO.php';
 require_once 'Backend/entity/Reserva.php';
 require_once "Backend/dao/EventoDAO.php";

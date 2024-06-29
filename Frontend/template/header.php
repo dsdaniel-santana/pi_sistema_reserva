@@ -1,3 +1,9 @@
+<?php
+
+session_start(); // Inicia uma sessão na página
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -7,10 +13,10 @@
   <title>Sistema Reserva de Salas</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
-
     body {
       min-height: calc(100vh - 100px);
     }
+
     nav {
       min-height: 70px;
 
@@ -61,7 +67,16 @@
             <a class="nav-link" href="eventos.php">Eventos</a>
             <a class="nav-link" href="sala.php">Salas</a>
             <a class="nav-link" href="tipo.php">Labs</a>
-            <a class="nav-link" href="login.php">Login</a>
+            <?php if (isset($_SESSION['token'])) : ?>
+              <li class="nav-item">
+                <form action="authService.php" method="post" style="display: inline;">
+                  <input type="hidden" name="type" value="logout">
+                  <button id="btnLogout" type="submit">Logout</button>
+                </form>
+              </li>
+            <?php else : ?>
+              <a class="nav-link" href="login.php"><b>Login</b></a>
+            <?php endif; ?>
           </div>
         </div>
       </div>
