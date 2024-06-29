@@ -209,7 +209,7 @@
                         AND (data_inicio <= :data_fim AND data_fim >= :data_inicio) 
                         AND (horario_inicio < :horario_fim AND horario_fim > :horario_inicio)
                         AND (";
-        
+
                 // Montando a condição para cada dia da semana
                 $dias_array = explode(',', $dias_semana);
                 $param_count = count($dias_array);
@@ -220,7 +220,7 @@
                     $sql .= "FIND_IN_SET(:dia$i, dias_semana) > 0";
                 }
                 $sql .= ")";
-        
+
                 // Preparando a statement
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':sala_id', $sala_id, PDO::PARAM_INT);
@@ -228,12 +228,12 @@
                 $stmt->bindParam(':data_fim', $data_fim);
                 $stmt->bindParam(':horario_inicio', $horario_inicio);
                 $stmt->bindParam(':horario_fim', $horario_fim);
-        
+
                 // Vinculando os dias da semana dinâmicos
                 for ($i = 0; $i < $param_count; $i++) {
                     $stmt->bindParam(":dia$i", $dias_array[$i], PDO::PARAM_INT);
                 }
-        
+
                 // Executando a query e recuperando o resultado
                 $stmt->execute();
                 $count = $stmt->fetchColumn();
@@ -242,6 +242,7 @@
                 return false;
             }
         }
+
         
         
 
@@ -253,7 +254,7 @@
                         AND (data_inicio <= :data_fim AND data_fim >= :data_inicio) 
                         AND (horario_inicio < :horario_fim AND horario_fim > :horario_inicio)
                         AND (";
-        
+
                 // Montando a condição para cada dia da semana
                 $dias_array = explode(',', $dias_semana);
                 $param_count = count($dias_array);
@@ -264,7 +265,7 @@
                     $sql .= "FIND_IN_SET(:dia$i, dias_semana) > 0";
                 }
                 $sql .= ")";
-        
+
                 // Preparando a statement
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':sala_id', $sala_id, PDO::PARAM_INT);
@@ -272,12 +273,12 @@
                 $stmt->bindParam(':data_fim', $data_fim);
                 $stmt->bindParam(':horario_inicio', $horario_inicio);
                 $stmt->bindParam(':horario_fim', $horario_fim);
-        
+
                 // Vinculando os dias da semana dinâmicos
                 for ($i = 0; $i < $param_count; $i++) {
                     $stmt->bindParam(":dia$i", $dias_array[$i], PDO::PARAM_INT);
                 }
-        
+
                 // Executando a query e recuperando o resultado
                 $stmt->execute();
                 $conflitos = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -286,7 +287,8 @@
                 return [];
             }
         }
-        
-        
+
+
     }
+        
 ?>
