@@ -2,7 +2,7 @@
 
 session_start(); // Inicia uma sessão na página
 
-if(!isset($_SESSION['token'])) {
+if (!isset($_SESSION['token'])) {
     header("Location: ./login.php");
     exit();
 }
@@ -47,16 +47,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $eventoDAO->update($evento);
         } else {
-            $novoEvento = new Evento(null, $_POST['titulo'],$_POST['sigla'], $_POST['docente'], $_POST['oferta']);
+            $novoEvento = new Evento(null, $_POST['titulo'], $_POST['sigla'], $_POST['docente'], $_POST['oferta']);
             $eventoDAO->create($novoEvento);
         }
 
         $evento = $eventoDAO->getByOferta($_POST['oferta']);
-        if($evento) {
-            header("Location: add_reserva.php?evento_id=" . $evento->getId() . "&reserva_id=" . $_POST['reserva_id'] );
-             exit();
+        if ($evento) {
+            header("Location: add_reserva.php?evento_id=" . $evento->getId() . "&reserva_id=" . $_POST['reserva_id']);
+            exit();
         }
-        
     }
 
 
@@ -84,8 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="container">
         <h3 class="my-4">Detalhes do Evento</h3>
-        <h3 class="my-4">Detalhes do Evento</h3>
-        <form action="eventos_add.php" method="POST">
+        <form action="eventos_reservas.php" method="POST">
             <input type="hidden" name="id" value="<?php echo $evento ? $evento->getId() : ''  ?>">
             <div class="card">
                 <div class="card-body">
@@ -126,28 +124,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
         </form>
+        <br>
+        <h3>Reservas</h3>
+        <br>
 
-        <h1>reservas</h1>
-
-        <?php if(!$reservaEventoById) {
+        <?php if (!$reservaEventoById) {
             echo "<h3>Este evento não contem reservas cadastradas</h3>";
             echo "<a href='add_reserva.php?evento_id=" . $_GET['evento_id'] . "'class='btn btn-primary'>Detalhes</a>";
-        }?>
-            <?php foreach ($reservaEventoById as $reserva) : ?>
-                <div class="col">
-                    <div class="card">
-                        <div class="card-body">
-                           
-                            <p class="card-text"><b>Data Inicio:</b> <?php echo htmlspecialchars($reserva ? $reserva->getData_inicio() : '', ENT_QUOTES, 'UTF-8'); ?></p>
-                            <p class="card-text"><b>Data Fim:</b> <?php echo htmlspecialchars($reserva ? $reserva->getData_fim() : '', ENT_QUOTES, 'UTF-8'); ?></p>
-                            <p class="card-text"><b>Horario Inicio:</b> <?php echo htmlspecialchars($reserva ? $reserva->getHorario_inicio() : '', ENT_QUOTES, 'UTF-8'); ?></p>
-                            <p class="card-text"><b>Horario Fim:</b> <?php echo htmlspecialchars($reserva ? $reserva->getHoraio_fim() : '', ENT_QUOTES, 'UTF-8'); ?></p>
-                            <p class="card-text"><b>Dias da Semana:</b> <?php echo htmlspecialchars($reserva ? $reserva->getDias_semana() : '', ENT_QUOTES, 'UTF-8'); ?></p>
-                            <a href="add_reserva.php?evento_id=<?php echo $_GET['evento_id']; ?>&reserva_id=<?php echo $reserva->getId(); ?>" class="btn btn-primary">Detalhes</a>
-                        </div>
+        } ?>
+        <?php foreach ($reservaEventoById as $reserva) : ?>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+
+                        <p class="card-text"><b>Data Inicio:</b> <?php echo htmlspecialchars($reserva ? $reserva->getData_inicio() : '', ENT_QUOTES, 'UTF-8'); ?></p>
+                        <p class="card-text"><b>Data Fim:</b> <?php echo htmlspecialchars($reserva ? $reserva->getData_fim() : '', ENT_QUOTES, 'UTF-8'); ?></p>
+                        <p class="card-text"><b>Horario Inicio:</b> <?php echo htmlspecialchars($reserva ? $reserva->getHorario_inicio() : '', ENT_QUOTES, 'UTF-8'); ?></p>
+                        <p class="card-text"><b>Horario Fim:</b> <?php echo htmlspecialchars($reserva ? $reserva->getHoraio_fim() : '', ENT_QUOTES, 'UTF-8'); ?></p>
+                        <p class="card-text"><b>Dias da Semana:</b> <?php echo htmlspecialchars($reserva ? $reserva->getDias_semana() : '', ENT_QUOTES, 'UTF-8'); ?></p>
+                        <a href="add_reserva.php?evento_id=<?php echo $_GET['evento_id']; ?>&reserva_id=<?php echo $reserva->getId(); ?>" class="btn btn-primary">Detalhes</a>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            </div>
+        <?php endforeach; ?>
     </div>
 </body>
 
