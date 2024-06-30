@@ -58,9 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
 
-    if (isset($_POST['delete']) && $evento->getId()) {
-        $eventoDAO->delete($evento->getId());
-        header('Location: index.php');
+    if (isset($_POST['delete']) && $_GET['evento_id']) {
+        $eventoDAO->delete($_GET['evento_id']);
+        header('Location: eventos.php');
         exit;
     }
 }
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="container">
         <h3 class="my-4">Detalhes do Evento</h3>
-        <form action="eventos_reservas.php" method="POST">
+        <form action="eventos_reservas.php?evento_id=<?php echo $_GET['evento_id']?>" method="POST">
             <input type="hidden" name="id" value="<?php echo $evento ? $evento->getId() : ''  ?>">
             <div class="card">
                 <div class="card-body">
@@ -104,6 +104,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
                     <button type="submit" name="save" class="btn btn-success">Salvar</i></button>
+                    <?php if (!$reservaEventoById) : ?>
+                        <button type="submit" name="delete" class="btn btn-danger">Excluir</button>
+                    <?php endif ?>
                     <a href="eventos.php" class="btn btn-secondary">Voltar</a>
                 </div>
             </div>

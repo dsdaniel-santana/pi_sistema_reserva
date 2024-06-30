@@ -15,7 +15,12 @@ $eventos = $eventoDAO->getAll();
 <?php
 require_once "Frontend/template/header.php";
 ?>
+
+
+
+
 <div class="container">
+    
     <h1 class="my-4">Lista de Eventos</h1>
     <a href="eventos_add.php" class="btn btn-primary mb-4">Adicionar Evento</a>
     <div class="row row-cols-1 row-cols-md-3 g-4">
