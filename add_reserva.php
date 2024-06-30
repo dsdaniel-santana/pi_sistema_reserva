@@ -23,14 +23,13 @@ $eventoDAO = new EventoDAO();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['reserva_id'])) {
     $reserva  = $reservaDAO->getById($_GET['reserva_id']);
-
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['save'])) {
-        if(isset($_POST['dias'])){
-            $dias_semanaStr = implode(", ", $_POST['dias']);
-        }
+    if (isset($_POST['save']) && isset($_POST['dias'])) {
+
+        $dias_semanaStr = implode(", ", $_POST['dias']);
+
         $data_inicio = $_POST['data_inicio'];
         $data_fim = $_POST['data_fim'];
         $horario_inicio = $_POST['horario_inicio'];
@@ -39,25 +38,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($reservaDAO->isConflict($data_inicio, $data_fim, $horario_inicio, $horario_fim, $sala_id, $dias_semanaStr)) {
             $conflitos = $reservaDAO->getConflictingReservations($data_inicio, $data_fim, $horario_inicio, $horario_fim, $sala_id, $dias_semanaStr);
-            
+
             echo "<div class='alert alert-danger' role='alert'>Já existe uma reserva para este horário e sala.</div>";
-            
+
             foreach ($conflitos as $conflito) {
                 $evento = $eventoDAO->getById($conflito['evento_ID']);
                 echo "<div class='alert alert-danger' role='alert'>
-                                                                    Data do Conflito: " . $conflito['data_inicio'] . 
-                                                                    ",<br> Horário: " . $conflito['horario_inicio'] . " até " . $conflito['horario_fim'] . 
-                                                                    ",<br> Dia inicial: " . $conflito['data_inicio'] .
-                                                                    ",<br> Data final: " . $conflito['data_fim'] .
-                                                                    ",<br>Evento: " . $conflito['evento_ID'] .
-                                                                    ",<br>Número da Sala: " . $conflito['sala_ID'] . "</div>";
-                                                                    
+                                                                    Data do Conflito: " . $conflito['data_inicio'] .
+                    ",<br> Horário: " . $conflito['horario_inicio'] . " até " . $conflito['horario_fim'] .
+                    ",<br> Dia inicial: " . $conflito['data_inicio'] .
+                    ",<br> Data final: " . $conflito['data_fim'] .
+                    ",<br>Evento: " . $conflito['evento_ID'] .
+                    ",<br>Número da Sala: " . $conflito['sala_ID'] . "</div>";
             }
         } else {
             if (isset($_POST['id']) && !empty($_POST['id'])) {
                 $reserva  = $reservaDAO->getById($_POST['id']);
                 $dias_semanaStr = implode(", ", $_POST['dias']);
-    
+
                 $reserva->setDocente($_POST['docente']);
                 $reserva->setData_inicio($_POST['data_inicio']);
                 $reserva->setData_fim($_POST['data_fim']);
@@ -66,32 +64,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $reserva->setDias_semana($dias_semanaStr);
                 $reserva->setEvento_id($_POST['evento_id']);
                 $reserva->setSala_id($_POST['sala_id']);
-    
+
                 $reservaDAO->update($reserva);
             } else {
-                if(isset($_POST['dias'])){
+                if (isset($_POST['dias'])) {
                     $dias_semanaStr = implode(", ", $_POST['dias']);
                 } else {
                     echo "<p>Insira os dias da semana</p>";
                     return;
                 }
-                
+
                 $novaReserva = new Reserva(null, $_POST['docente'], $_POST['data_inicio'], $_POST['data_fim'], $_POST['horario_inicio'], $_POST['horario_fim'], $dias_semanaStr, $_POST['evento_id'], $_POST['sala_id']);
                 $reservaDAO->create($novaReserva);
             }
-    
+
             header('Location: eventos.php');
             exit;
         }
+    } else {
+        echo "<div class='alert alert-danger' role='alert'><h5>Insira dias da semana</h5></div>";
     }
-    
-        if (isset($_POST['delete']) && isset($_POST['id'])) {
-            $reservaDAO->delete($_POST['id']);
-            header('Location: eventos.php');
-            exit;
-        }
-             
-    
+
+    if (isset($_POST['delete']) && isset($_POST['id'])) {
+        $reservaDAO->delete($_POST['id']);
+        header('Location: eventos.php');
+        exit;
+    }
 }
 ?>
 
@@ -172,7 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?php if ($reserva) : ?>
                         <button type="submit" name="delete" class="btn btn-danger">Excluir</button>
                     <?php endif ?>
-                    <a href="index.php" class="btn btn-secondary">Voltar</a>
+                    <a href="eventos.php" class="btn btn-secondary">Voltar</a>
                 </div>
             </div>
         </form>

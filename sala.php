@@ -14,6 +14,13 @@ $salas = $salaDAO->getAll();
         <a href="add_sala.php" class="btn btn-primary mb-4">Adicionar Sala</a>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php foreach ($salas as $sala) : ?>
+
+                <?php
+                    require_once "Backend/dao/tipoDAO.php";
+                    $tipoDAO = new TipoDAO();
+                    $tipo_sala = $tipoDAO->getById($sala->getTipo_id());
+                ?>
+
                 <div class="col">
                     <div class="card">
                         <div class="card-body">
@@ -21,7 +28,7 @@ $salas = $salaDAO->getAll();
                             <p class="card-text">Numero de Sala: <?php echo htmlspecialchars($sala->getNumero(), ENT_QUOTES, 'UTF-8'); ?></p>
                             <p class="card-text">Capacidade <?php echo htmlspecialchars($sala->getCapacidade(), ENT_QUOTES, 'UTF-8'); ?></p>
                             <p class="card-text">Andar <?php echo htmlspecialchars($sala->getAndar(), ENT_QUOTES, 'UTF-8'); ?></p>
-                            <p class="card-text">ID de Tipo de Sala <?php echo htmlspecialchars($sala->getTipo_id(), ENT_QUOTES, 'UTF-8'); ?></p>
+                            <p class="card-text"><?php echo htmlspecialchars($tipo_sala->getTipo(), ENT_QUOTES, 'UTF-8'); ?></p>
                             <a href="add_sala.php?id=<?php echo $sala->getId(); ?>" class="btn btn-primary">Editar <i class="fa-solid fa-pen"></i></a>
                         </div>
                     </div>
