@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
         <?php if (!$reservaEventoById) {
-            echo "<h3>Este evento não contem reservas cadastradas</h3>";
+            echo "<h5>Este evento não contem reservas cadastradas</h5>";
             //echo "<a href='add_reserva.php?evento_id=" . $_GET['evento_id'] . "'class='btn btn-primary'>Detalhes</a>";
         } ?>
 

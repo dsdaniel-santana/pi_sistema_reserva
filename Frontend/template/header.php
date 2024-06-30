@@ -23,13 +23,15 @@
     :root {
       font-size: 90%;
     }
-    
+
 
     nav {
       min-height: 70px;
       box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, .2);
       background-color: #fff;
     }
+
+ 
 
     .form-select {
       width: 100%;
@@ -73,6 +75,8 @@
       width: 100%;
       /* z-index: 1000; */
     }
+
+
   </style>
 </head>
 
@@ -80,6 +84,11 @@
   <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
+        <div class="container">
+          <a class="navbar-brand" href="#">
+            <img src="logo-senac.webp" alt="Logo Senac" width="90" height="40">
+          </a>
+        </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
         </button>
