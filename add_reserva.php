@@ -19,6 +19,7 @@ $salas = $salasDAO->getAll();
 $reservaDAO = new ReservaDAO();
 $reserva = null;
 
+
 $eventoDAO = new EventoDAO();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['reserva_id'])) {
