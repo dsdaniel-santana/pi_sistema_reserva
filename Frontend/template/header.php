@@ -1,7 +1,5 @@
 <?php
 
-session_start(); // Inicia uma sessão na página
-
 ?>
 
 <!DOCTYPE html>
@@ -13,15 +11,27 @@ session_start(); // Inicia uma sessão na página
   <title>Sistema Reserva de Salas</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
     body {
       min-height: 100vh;
       margin-bottom: 200px;
+      font-family: 'Poppins', sans-serif;
+      background-color: aliceblue;
     }
+
+    :root {
+      font-size: 90%;
+    }
+
 
     nav {
       min-height: 70px;
-
+      box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, .2);
+      background-color: #fff;
     }
+
+ 
 
     .form-select {
       width: 100%;
@@ -32,6 +42,11 @@ session_start(); // Inicia uma sessão na página
       border: none;
       font-size: 1.2rem;
       margin-top: 7px;
+    }
+
+    .card {
+      margin-bottom: 1rem;
+      background-color: #fff;
     }
 
     .navbar-nav a {
@@ -51,7 +66,6 @@ session_start(); // Inicia uma sessão na página
 
 
     footer {
-      background-color: #ddd;
       color: #333;
       padding: 10px;
       text-align: center;
@@ -61,6 +75,8 @@ session_start(); // Inicia uma sessão na página
       width: 100%;
       /* z-index: 1000; */
     }
+
+
   </style>
 </head>
 
@@ -68,6 +84,11 @@ session_start(); // Inicia uma sessão na página
   <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
+        <div class="container">
+          <a class="navbar-brand" href="#">
+            <img src="logo-senac.webp" alt="Logo Senac" width="90" height="40">
+          </a>
+        </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
         </button>

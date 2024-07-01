@@ -1,7 +1,7 @@
 <?php
     class Reserva {
         private $id;
-        private $status_sala;
+        private $docente;
         private $data_inicio;
         private $data_fim; 
         private $horario_inicio; 
@@ -10,10 +10,10 @@
         private $evento_id;   
         private $sala_id;
         
-        public function __construct($id, $status_sala, $data_inicio, $data_fim, $horario_inicio, $horario_fim, $dias_semana, $evento_id, $sala_id)
+        public function __construct($id, $docente, $data_inicio, $data_fim, $horario_inicio, $horario_fim, $dias_semana, $evento_id, $sala_id)
         {
             $this->id = $id;
-            $this->status_sala = $status_sala;
+            $this->docente = $docente;
             $this->data_inicio = $data_inicio;
             $this->data_fim = $data_fim;
             $this->horario_inicio = $horario_inicio;
@@ -29,8 +29,8 @@
             return $this->id;
         }
 
-        public function getStatus_sala() {
-            return $this->status_sala;
+        public function getDocente() {
+            return $this->docente;
         }
 
         public function getData_inicio() {
@@ -64,8 +64,8 @@
 
         // SETTERS
 
-        public function setStatus_sala($status_sala) {
-            $this->status_sala = $status_sala;
+        public function setDocente($docente) {
+            $this->docente = $docente;
         }
 
         public function setData_inicio($data_inicio) {

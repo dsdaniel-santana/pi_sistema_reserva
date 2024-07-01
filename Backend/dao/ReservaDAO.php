@@ -21,7 +21,7 @@
 
                 return $reserva ?
                     new Reserva($reserva['id'],
-                                $reserva['status_sala'],
+                                $reserva['docente'],
                                 $reserva['data_inicio'],
                                 $reserva['data_fim'],
                                 $reserva['horario_inicio'],
@@ -46,7 +46,7 @@
 
                 return array_map(function ($reserva) {
                     return new Reserva($reserva['id'],
-                                        $reserva['status_sala'],
+                                        $reserva['docente'],
                                         $reserva['data_inicio'],
                                         $reserva['data_fim'],
                                         $reserva['horario_inicio'],
@@ -72,7 +72,7 @@
 
                 return array_map(function ($reserva) {
                     return new Reserva($reserva['id'],
-                                        $reserva['status_sala'],
+                                        $reserva['docente'],
                                         $reserva['data_inicio'],
                                         $reserva['data_fim'],
                                         $reserva['horario_inicio'],
@@ -89,13 +89,13 @@
 
         public function create($reserva) {
             try {
-                $sql = "INSERT INTO reserva (status_sala, data_inicio, data_fim, horario_inicio, horario_fim, dias_semana,evento_ID, sala_ID) VALUES
-                (:status_sala, :data_inicio, :data_fim, :horario_inicio, :horario_fim, :dias_semana, :evento_ID, :sala_ID)";
+                $sql = "INSERT INTO reserva (docente, data_inicio, data_fim, horario_inicio, horario_fim, dias_semana,evento_ID, sala_ID) VALUES
+                (:docente, :data_inicio, :data_fim, :horario_inicio, :horario_fim, :dias_semana, :evento_ID, :sala_ID)";
 
                 $stmt = $this->db->prepare($sql);
 
                 // Bind parameters by reference
-                $status_sala = $reserva->getStatus_sala();
+                $docente = $reserva->getDocente();
                 $data_inicio = $reserva->getData_inicio();
                 $data_fim = $reserva->getData_fim();
                 $horario_inicio = $reserva->getHorario_inicio();
@@ -104,7 +104,7 @@
                 $evento_ID = $reserva->getEvento_id();
                 $sala_ID = $reserva->getSala_id();
 
-                $stmt->bindParam(':status_sala', $status_sala);
+                $stmt->bindParam(':docente', $docente);
                 $stmt->bindParam(':data_inicio', $data_inicio);
                 $stmt->bindParam(':data_fim', $data_fim);
                 $stmt->bindParam(':horario_inicio', $horario_inicio);
@@ -128,14 +128,14 @@
                     return false; // Retorna falso se o usuário não existir
                 }
                 
-                $sql = "UPDATE reserva SET status_sala = :status_sala, data_inicio = :data_inicio, data_fim = :data_fim, horario_inicio = :horario_inicio, 
+                $sql = "UPDATE reserva SET docente = :docente, data_inicio = :data_inicio, data_fim = :data_fim, horario_inicio = :horario_inicio, 
                 horario_fim = :horario_fim, dias_semana = :dias_semana, evento_ID = :evento_ID, sala_ID = :sala_ID
                 WHERE id = :id";
                 
                 $stmt = $this->db->prepare($sql);
                 // Bind parameters by reference
                 $id = $reserva->getId();
-                $status_sala = $reserva->getStatus_sala();
+                $docente = $reserva->getDocente();
                 $data_inicio = $reserva->getData_inicio();
                 $data_fim = $reserva->getData_fim();
                 $horario_inicio = $reserva->getHorario_inicio();
@@ -145,7 +145,7 @@
                 $sala_ID = $reserva->getSala_id();
 
                 $stmt->bindParam(':id', $id);
-                $stmt->bindParam(':status_sala', $status_sala);
+                $stmt->bindParam(':docente', $docente);
                 $stmt->bindParam(':data_inicio', $data_inicio);
                 $stmt->bindParam(':data_fim', $data_fim);
                 $stmt->bindParam(':horario_inicio', $horario_inicio);
@@ -176,7 +176,7 @@
 
         public function listarSalas($data, $horario_inicio, $horario_fim) {
             try {
-                $sql = "SELECT sala.numero, evento.titulo, reserva.horario_inicio, reserva.horario_fim, evento.docente 
+                $sql = "SELECT sala.numero, evento.titulo, reserva.horario_inicio, reserva.horario_fim, reserva.docente 
                         FROM reserva 
                         LEFT JOIN sala ON reserva.sala_ID = sala.id
                         LEFT JOIN evento ON reserva.evento_ID = evento.id
