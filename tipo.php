@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 require_once "Backend/config/Database.php";
 require_once "Backend/dao/tipoDAO.php";
 

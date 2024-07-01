@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 include_once "Backend/config/Database.php";
 include_once "Backend/dao/EventoDAO.php";
 include_once "Backend/entity/Evento.php";
