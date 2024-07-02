@@ -96,6 +96,8 @@
             <a class="nav-link" href="sala.php">Salas</a>
             <a class="nav-link" href="tipo.php">Labs</a>
             <?php if (isset($_SESSION['token'])) : ?>
+            <a class="nav-link" href="login.php">Adicionar </a>
+
               <li class="nav-item">
                 <form action="authService.php" method="post" style="display: inline;">
                   <input type="hidden" name="type" value="logout">

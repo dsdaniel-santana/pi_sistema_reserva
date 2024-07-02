@@ -1,15 +1,15 @@
 -- Primeiro, inserir os tipos de sala na tabela `tipo`
-INSERT INTO tipo (id, tipo_sala) VALUES 
-(1, 'Sala de Aula'),
-(2, 'Biblioteca'),
-(3, 'Laboratório de Artes'),
-(4, 'Laboratório de Informática'),
-(5, 'Laboratório de Redes'),
-(6, 'Laboratório Makers'),
-(7, 'Sala de Conferência'),
-(8, 'Sala de Reunião'),
-(9, 'Auditório'),
-(10, 'Sala de Música');
+INSERT INTO tipo (tipo_sala) VALUES 
+('Sala de Aula'),
+('Biblioteca'),
+('Laboratório de Artes'),
+('Laboratório de Informática'),
+('Laboratório de Redes'),
+('Laboratório Makers'),
+('Sala de Conferência'),
+('Sala de Reunião'),
+('Auditório'),
+('Sala de Música');
 
 INSERT INTO sala (numero, capacidade, andar, tipo_ID) VALUES 
 ('Sala 1', FLOOR(10 + RAND() * 90), 1, 1),
@@ -22,7 +22,6 @@ INSERT INTO sala (numero, capacidade, andar, tipo_ID) VALUES
 ('Sala 8', FLOOR(10 + RAND() * 90), 1, 3),
 ('Sala 9', FLOOR(10 + RAND() * 90), 1, 4),
 ('Sala 10', FLOOR(10 + RAND() * 90), 1, 4),
-
 ('Sala 11', FLOOR(10 + RAND() * 90), 2, 5),
 ('Sala 12', FLOOR(10 + RAND() * 90), 2, 5),
 ('Sala 13', FLOOR(10 + RAND() * 90), 2, 6),
@@ -33,7 +32,6 @@ INSERT INTO sala (numero, capacidade, andar, tipo_ID) VALUES
 ('Sala 18', FLOOR(10 + RAND() * 90), 2, 8),
 ('Sala 19', FLOOR(10 + RAND() * 90), 2, 9),
 ('Sala 20', FLOOR(10 + RAND() * 90), 2, 9),
-
 ('Sala 21', FLOOR(10 + RAND() * 90), 3, 10),
 ('Sala 22', FLOOR(10 + RAND() * 90), 3, 10),
 ('Sala 23', FLOOR(10 + RAND() * 90), 3, 1),
@@ -44,7 +42,6 @@ INSERT INTO sala (numero, capacidade, andar, tipo_ID) VALUES
 ('Sala 28', FLOOR(10 + RAND() * 90), 3, 3),
 ('Sala 29', FLOOR(10 + RAND() * 90), 3, 4),
 ('Sala 30', FLOOR(10 + RAND() * 90), 3, 4),
-
 ('Sala 31', FLOOR(10 + RAND() * 90), 4, 5),
 ('Sala 32', FLOOR(10 + RAND() * 90), 4, 5),
 ('Sala 33', FLOOR(10 + RAND() * 90), 4, 6),
@@ -55,7 +52,6 @@ INSERT INTO sala (numero, capacidade, andar, tipo_ID) VALUES
 ('Sala 38', FLOOR(10 + RAND() * 90), 4, 8),
 ('Sala 39', FLOOR(10 + RAND() * 90), 4, 9),
 ('Sala 40', FLOOR(10 + RAND() * 90), 4, 9),
-
 ('Sala 41', FLOOR(10 + RAND() * 90), 5, 10),
 ('Sala 42', FLOOR(10 + RAND() * 90), 5, 10),
 ('Sala 43', FLOOR(10 + RAND() * 90), 5, 1),

@@ -1,4 +1,5 @@
 <?php
+session_start(); // Inicia uma sessão na página
 require_once "Backend/config/Database.php";
 require_once "Backend/dao/ReservaDAO.php";
 require_once "Backend/dao/tipoDAO.php";
