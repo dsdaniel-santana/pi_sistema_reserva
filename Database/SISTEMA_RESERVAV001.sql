@@ -50,20 +50,3 @@ CREATE TABLE IF NOT EXISTS usuario (
     email VARCHAR(100) UNIQUE,
     token VARCHAR(255) DEFAULT NULL
 );
-
-drop database sistema_reserva;
-
-INSERT INTO tipo (id, tipo_sala) VALUES 
-	(null, "lab. Informática"),
-    (null, "Atrio");
-    
-INSERT INTO sala (numero, capacidade, andar, tipo_ID) VALUES 
-	("18", 45, 1, 1);
-    
-INSERT INTO evento (titulo, sigla, oferta) VALUES 
-	("Técnico em Informatica Para Internet", "TII04", "295894");
-
-INSERT INTO reserva (docente, data_inicio, data_fim, horario_inicio, horario_fim, dias_semana, evento_ID, sala_ID) VALUES 
-	("Aecio", "2024-03-06", "2024-05-24", "19:00:56", "22:30:34", "2, 3, 4, 5, 6", 1, 1);
-select * from usuario;
-

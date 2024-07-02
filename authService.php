@@ -31,7 +31,7 @@ if ($type === "register") {
 
                 if($success) {
                     $_SESSION['token'] = $token;
-                    header('Location: index.php');
+                    header('Location: index.php');  
                     exit();
                 } else {
                     echo "Erro ao registrar no banco de dados!";
@@ -47,34 +47,28 @@ if ($type === "register") {
         echo "Dados de input inválidos!";
     }
 } elseif ($type === "login") {
-    //// Login de usuário
-
-    // Receber os dados vindos do HTML
     $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
     $password = filter_input(INPUT_POST, "password");
 
-    // Verificar se o cadastro existe
     $usuarioDAO = new UsuarioDAO();
-    $usuario = $usuarioDAO->getByEmail($email);    
+    $usuario = $usuarioDAO->getByEmail($email);
 
-    // Redirecionar o usuário para o index.php autenticado
-    if($usuario && password_verify($password, $usuario->getSenha())) {
-        $token = bin2hex(random_bytes(25));
-        $usuarioDAO->updateToken($usuario->getId(), $token);
-        $_SESSION['token'] = $token;
-        header('Location: index.php');
-        exit();
+    if($usuario) {
+        if(password_verify($password, $usuario->getSenha())) {
+            $token = bin2hex(random_bytes(25));
+            $usuarioDAO->updateToken($usuario->getId(), $token);
+            $_SESSION['token'] = $token;
+            header('Location: index.php');
+            exit();
+        } else {
+            echo "Senha inválida!";
+        }
     } else {
-        echo "Email ou Senha inválidos!";
+        echo "Email não encontrado!";
     }
 } elseif ($type === "logout") {
-    // Limpa todas as variáveis da sessão
     $_SESSION = array();
-
-    // Destruir a sessão
     session_destroy();
-
-    // Redirecionar para a página de login
     header('Location: ./login.php');
     exit();
 }
