@@ -95,78 +95,96 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <?php
-    require_once "Frontend/template/header.php";
+require_once "Frontend/template/header.php";
 ?>
 <br>
-    <div class="container">
+<div class="container">
 
-        <h3>Detalhes da Reserva</h3>
-        <br>
-        <form action="add_reserva.php" method="POST">
-            <input type="hidden" name="id" value="<?php echo $reserva ? $reserva->getId() : ''  ?>">
-            <div class="card">
-                <div class="card-body">
-                    <div class="form-group" style="display: none;">
-                        <label for="evento_id">Evento id:</label>
-                        <input type="number" class="form-control" id="evento_id" name="evento_id" value="<?php echo $_GET['evento_id'] ? $_GET['evento_id'] : ''  ?>" required>
+    <h3>Detalhes da Reserva</h3>
+    <br>
+    <form action="add_reserva.php" method="POST">
+        <input type="hidden" name="id" value="<?php echo $reserva ? $reserva->getId() : ''  ?>">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group" style="display: none;">
+                    <label for="evento_id">Evento id:</label>
+                    <input type="number" class="form-control" id="evento_id" name="evento_id" value="<?php echo $_GET['evento_id'] ? $_GET['evento_id'] : ''  ?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="docente">Docente:</label>
+                    <input type="text" class="form-control" id="docente" name="docente" value="<?php echo $reserva ? $reserva->getDocente() : ''  ?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="data_inicio">Data Inicio:</label>
+                    <input type="date" class="form-control" id="data_inicio" name="data_inicio" value="<?php echo $reserva ? $reserva->getData_inicio() : ''  ?>">
+                </div>
+                <div class="form-group">
+                    <label for="data_fim">Data Fim:</label>
+                    <input type="date" class="form-control" id="data_fim" name="data_fim" value="<?php echo $reserva ? $reserva->getData_fim() : ''  ?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="horario_inicio">horario Inicio:</label>
+                    <input type="time" class="form-control" id="horario_inicio" name="horario_inicio" value="<?php echo $reserva ? $reserva->getHorario_inicio() : ''  ?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="horario_fim">Horario Fim:</label>
+                    <input type="time" class="form-control" id="horario_fim" name="horario_fim" value="<?php echo $reserva ? $reserva->getHoraio_fim() : ''  ?>" required>
+                </div>
+                <div class="form-group">
+                    <h5>Dias Da Semana:</h5>
+                    <div style="display: flex;">
+                        <label for="seg">Seg:</label>
+                        <input type="checkbox" class="form-control" id="seg" name="dias[]" value="1">
+                        <label for="ter">Ter:</label>
+                        <input type="checkbox" class="form-control" id="ter" name="dias[]" value="2">
+                        <label for="qua">Qua:</label>
+                        <input type="checkbox" class="form-control" id="qua" name="dias[]" value="3">
+                        <label for="qui">Qui:</label>
+                        <input type="checkbox" class="form-control" id="qui" name="dias[]" value="4">
+                        <label for="sex">Sex:</label>
+                        <input type="checkbox" class="form-control" id="sex" name="dias[]" value="5">
+                        <label for="sab">Sab:</label>
+                        <input type="checkbox" class="form-control" id="sab" name="dias[]" value="6">
+                        <label for="dom">Dom:</label>
+                        <input type="checkbox" class="form-control" id="dom" name="dias[]" value="7">
                     </div>
-                    <div class="form-group">
-                        <label for="docente">Docente:</label>
-                        <input type="text" class="form-control" id="docente" name="docente" value="<?php echo $reserva ? $reserva->getDocente() : ''  ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="data_inicio">Data Inicio:</label>
-                        <input type="date" class="form-control" id="data_inicio" name="data_inicio" value="<?php echo $reserva ? $reserva->getData_inicio() : ''  ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="data_fim">Data Fim:</label>
-                        <input type="date" class="form-control" id="data_fim" name="data_fim" value="<?php echo $reserva ? $reserva->getData_fim() : ''  ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="horario_inicio">horario Inicio:</label>
-                        <input type="time" class="form-control" id="horario_inicio" name="horario_inicio" value="<?php echo $reserva ? $reserva->getHorario_inicio() : ''  ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="horario_fim">Horario Fim:</label>
-                        <input type="time" class="form-control" id="horario_fim" name="horario_fim" value="<?php echo $reserva ? $reserva->getHoraio_fim() : ''  ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <h5>Dias Da Semana:</h5>
-                        <div style="display: flex;">
-                            <label for="seg">Seg:</label>
-                            <input type="checkbox" class="form-control" id="seg" name="dias[]" value="1">
-                            <label for="ter">Ter:</label>
-                            <input type="checkbox" class="form-control" id="ter" name="dias[]" value="2">
-                            <label for="qua">Qua:</label>
-                            <input type="checkbox" class="form-control" id="qua" name="dias[]" value="3">
-                            <label for="qui">Qui:</label>
-                            <input type="checkbox" class="form-control" id="qui" name="dias[]" value="4">
-                            <label for="sex">Sex:</label>
-                            <input type="checkbox" class="form-control" id="sex" name="dias[]" value="5">
-                            <label for="sab">Sab:</label>
-                            <input type="checkbox" class="form-control" id="sab" name="dias[]" value="6">
-                            <label for="dom">Dom:</label>
-                            <input type="checkbox" class="form-control" id="dom" name="dias[]" value="7">
+                </div>
+                <div class="mb-3">
+                    <label for="sala_id" class="form-label">Salas: </label>
+                    <select style="width: 100%; padding: 5px; border-radius: 5px;" id="sala_id" name="sala_id" required>
+                        <?php foreach ($salas as $sala) : ?>
+                            <option value="<?php echo $sala->getId(); ?>"><?php echo $sala->getNumero(); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <button type="submit" name="save" class="btn btn-success">Salvar</button>
+                <?php if ($reserva) : ?>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Excluir</button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h2 class="modal-title" id="exampleModalLabel">Confirmar Exclusão</h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <p>Tem certeza de que deseja excluir a reserva de <b><?php echo $reserva->getDocente();?></b> para a sala <b><?php echo $sala->getNumero();?></b>?</p>
+                                    <p>Esta ação não pode ser desfeita.</p>
+                                </div>
+                                <div class="modal-footer justify-content-center">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" name="delete" class="btn btn-danger">Excluir</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="sala_id" class="form-label">Salas: </label>
-                        <select style="width: 100%; padding: 5px; border-radius: 5px;" id="sala_id" name="sala_id" required>
-                            <?php foreach ($salas as $sala) : ?>
-                                <option value="<?php echo $sala->getId(); ?>"><?php echo $sala->getNumero(); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <button type="submit" name="save" class="btn btn-success">Salvar</button>
-                    <?php if ($reserva) : ?>
-                        <button type="submit" name="delete" class="btn btn-danger">Excluir</button>
-                    <?php endif ?>
-                    <a href="eventos.php" class="btn btn-secondary">Voltar</a>
-                </div>
+                <?php endif ?>
+                <a href="eventos.php" class="btn btn-secondary">Voltar</a>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
+</div>
 
-    <?php
-        require_once "Frontend/template/footer.php";
-    ?>
+<?php
+require_once "Frontend/template/footer.php";
+?>
