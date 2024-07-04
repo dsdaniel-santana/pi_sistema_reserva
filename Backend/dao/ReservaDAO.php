@@ -174,8 +174,9 @@
             }
         }
 
-        public function listarSalas($data, $horario_inicio, $horario_fim) {
+        public function listarSalas($data, $horario_inicio, $horario_fim, $dia_semana) {
             try {
+                // Ajustar a consulta SQL
                 $sql = "SELECT sala.numero, evento.titulo, reserva.horario_inicio, reserva.horario_fim, reserva.docente 
                         FROM reserva 
                         LEFT JOIN sala ON reserva.sala_ID = sala.id
@@ -184,13 +185,18 @@
                           AND (:horario_inicio BETWEEN reserva.horario_inicio AND reserva.horario_fim
                                OR :horario_fim BETWEEN reserva.horario_inicio AND reserva.horario_fim
                                OR (reserva.horario_inicio >= :horario_inicio AND reserva.horario_fim <= :horario_fim))
-                               ORDER BY sala.numero ASC;
-                       ";
+                          AND reserva.dias_semana LIKE :dia_semana
+                        ORDER BY sala.numero ASC";
         
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':data', $data);
                 $stmt->bindParam(':horario_inicio', $horario_inicio);
                 $stmt->bindParam(':horario_fim', $horario_fim);
+        
+                // Adicionar curingas '%' ao redor do valor do dia da semana para a cláusula LIKE
+                $dia_semana_param = '%' . $dia_semana . '%';
+                $stmt->bindParam(':dia_semana', $dia_semana_param);
+        
                 $stmt->execute();
                 $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
@@ -199,6 +205,7 @@
                 return false;
             }
         }
+        
         
 
         public function isConflict($data_inicio, $data_fim, $horario_inicio, $horario_fim, $sala_id, $dias_semana) {

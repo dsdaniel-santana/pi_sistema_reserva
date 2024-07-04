@@ -105,7 +105,26 @@ require_once "Frontend/template/header.php";
 
                     <button type="submit" name="save" class="btn btn-success">Salvar</i></button>
                     <?php if (!$reservaEventoById) : ?>
-                        <button type="submit" name="delete" class="btn btn-danger">Excluir</button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Excluir</button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2 class="modal-title" id="exampleModalLabel">Confirmar Exclusão</h2>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <p>Tem certeza de que deseja excluir a reserva de <b><?php echo $evento->getTitulo() ?></b> com o código de Oferta <b><?php echo $evento->getOferta() ?></b> e sigla <b><?php echo $evento->getSigla() ?></b>?</p>
+                                        <p>Esta ação não pode ser desfeita.</p>
+                                    </div>
+                                    <div class="modal-footer justify-content-center">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" name="delete" class="btn btn-danger">Excluir</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     <?php endif ?>
                     <a href="eventos.php" class="btn btn-secondary">Voltar</a>
                 </div>
