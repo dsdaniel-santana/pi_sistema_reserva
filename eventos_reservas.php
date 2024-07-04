@@ -67,13 +67,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <?php
-    require_once "Frontend/template/header.php";
+require_once "Frontend/template/header.php";
 ?>
 
 <body>
     <div class="container">
         <h3 class="my-4">Detalhes do Evento</h3>
-        <form action="eventos_reservas.php?evento_id=<?php echo $_GET['evento_id']?>" method="POST">
+        <form action="eventos_reservas.php?evento_id=<?php echo $_GET['evento_id'] ?>" method="POST">
             <input type="hidden" name="id" value="<?php echo $evento ? $evento->getId() : ''  ?>">
             <div class="card">
                 <div class="card-body">
@@ -105,7 +105,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <button type="submit" name="save" class="btn btn-success">Salvar</i></button>
                     <?php if (!$reservaEventoById) : ?>
-                        <button type="submit" name="delete" class="btn btn-danger">Excluir</button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Excluir</button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2 class="modal-title" id="exampleModalLabel">Confirmar Exclusão</h2>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <p>Tem certeza de que deseja excluir a reserva de <b><?php echo $evento->getTitulo() ?></b> com o código de Oferta <b><?php echo $evento->getOferta() ?></b> e sigla <b><?php echo $evento->getSigla() ?></b>?</p>
+                                        <p>Esta ação não pode ser desfeita.</p>
+                                    </div>
+                                    <div class="modal-footer justify-content-center">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" name="delete" class="btn btn-danger">Excluir</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     <?php endif ?>
                     <a href="eventos.php" class="btn btn-secondary">Voltar</a>
                 </div>
@@ -122,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //echo "<a href='add_reserva.php?evento_id=" . $_GET['evento_id'] . "'class='btn btn-primary'>Detalhes</a>";
         } ?>
 
-        <a href="add_reserva.php?evento_id=<?php echo $_GET['evento_id']?>" class="btn btn-primary mb-4">Add novo</a>
+        <a href="add_reserva.php?evento_id=<?php echo $_GET['evento_id'] ?>" class="btn btn-primary mb-4">Add novo</a>
         <?php foreach ($reservaEventoById as $reserva) : ?>
             <div class="col">
                 <div class="card">
@@ -142,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </body>
 
 <?php
-    require_once "Frontend/template/footer.php";
+require_once "Frontend/template/footer.php";
 ?>
 
 
