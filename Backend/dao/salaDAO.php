@@ -1,7 +1,7 @@
 <?php
-    require_once "config/Database.php";
+    require_once "Backend/config/Database.php";
     require_once "BaseDAO.php";
-    require_once "entity/Sala.php";
+    require_once "Backend/entity/sala.php";
 
     class SalaDAO implements BaseDAO {
         private $db;
@@ -118,11 +118,11 @@
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':id', $id);
                 $stmt->execute();
-           
+                
+                return true;
             } catch (PDOException $e) {
                 return false;
             }
         }
-
     }
 ?>

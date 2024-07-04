@@ -12,7 +12,6 @@ CREATE TABLE IF NOT EXISTS evento (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(200) NOT NULL,
     sigla VARCHAR(30) NOT NULL UNIQUE,
-    docente VARCHAR(100) DEFAULT NULL,
     oferta VARCHAR(50) NOT NULL UNIQUE
 );
 
@@ -32,7 +31,7 @@ CREATE TABLE IF NOT EXISTS sala (
 
 CREATE TABLE IF NOT EXISTS reserva (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-    status_sala ENUM("Livre","Reservado","Em Manutenção"),
+	docente VARCHAR(100) DEFAULT NULL,
 	data_inicio DATE NOT NULL,
     data_fim DATE NOT NULL,
     horario_inicio TIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -51,4 +50,3 @@ CREATE TABLE IF NOT EXISTS usuario (
     email VARCHAR(100) UNIQUE,
     token VARCHAR(255) DEFAULT NULL
 );
-
