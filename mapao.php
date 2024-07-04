@@ -6,8 +6,13 @@ require_once "Backend/dao/tipoDAO.php";
 require_once "Backend/dao/EventoDAO.php";
 require_once "Backend/dao/SalaDAO.php";
 
+date_default_timezone_set('America/Sao_Paulo');
+
+
+
 $mapaoDAO = new ReservaDAO();
 $mapao = $mapaoDAO->listarSalas(date("y-m-d"), date("H:m:s"), date("H:m:s"));
+echo date("H:i:s");
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(isset($_POST['save'])) {

@@ -67,13 +67,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <?php
-    require_once "Frontend/template/header.php";
+require_once "Frontend/template/header.php";
 ?>
 
 <body>
     <div class="container">
         <h3 class="my-4">Detalhes do Evento</h3>
-        <form action="eventos_reservas.php?evento_id=<?php echo $_GET['evento_id']?>" method="POST">
+        <form action="eventos_reservas.php?evento_id=<?php echo $_GET['evento_id'] ?>" method="POST">
             <input type="hidden" name="id" value="<?php echo $evento ? $evento->getId() : ''  ?>">
             <div class="card">
                 <div class="card-body">
@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //echo "<a href='add_reserva.php?evento_id=" . $_GET['evento_id'] . "'class='btn btn-primary'>Detalhes</a>";
         } ?>
 
-        <a href="add_reserva.php?evento_id=<?php echo $_GET['evento_id']?>" class="btn btn-primary mb-4">Add novo</a>
+        <a href="add_reserva.php?evento_id=<?php echo $_GET['evento_id'] ?>" class="btn btn-primary mb-4">Add novo</a>
         <?php foreach ($reservaEventoById as $reserva) : ?>
             <div class="col">
                 <div class="card">
@@ -132,7 +132,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <p class="card-text"><b>Data Fim:</b> <?php echo htmlspecialchars($reserva ? $reserva->getData_fim() : '', ENT_QUOTES, 'UTF-8'); ?></p>
                         <p class="card-text"><b>Horario Inicio:</b> <?php echo htmlspecialchars($reserva ? $reserva->getHorario_inicio() : '', ENT_QUOTES, 'UTF-8'); ?></p>
                         <p class="card-text"><b>Horario Fim:</b> <?php echo htmlspecialchars($reserva ? $reserva->getHoraio_fim() : '', ENT_QUOTES, 'UTF-8'); ?></p>
-                        <p class="card-text"><b>Dias da Semana:</b> <?php echo htmlspecialchars($reserva ? $reserva->getDias_semana() : '', ENT_QUOTES, 'UTF-8'); ?></p>
+                        <?php
+                        $dias = explode(", ", $reserva->getDias_semana());
+                        $string_dias = array();
+
+                        foreach ($dias as $dia) {
+                            switch ($dia) {
+                                case 1:
+                                    array_push($string_dias, "seg");
+                                    break;
+
+                                case 2:
+                                    array_push($string_dias, "ter");
+                                    break;
+
+                                case 3:
+                                    array_push($string_dias, "qua");
+                                    break;
+                                case 4:
+                                    array_push($string_dias, "qui");
+                                    break;
+                                case 5:
+                                    array_push($string_dias, "sex");
+                                    break;
+                                case 6:
+                                    array_push($string_dias, "sab");
+                                    break;
+                                case 7:
+                                    array_push($string_dias, "dom");
+                                    break;
+
+                                default:
+                                    # code...
+                                    break;
+                            }
+                        }
+                        
+                        $teste = implode(', ', $string_dias);
+
+                        ?>
+                    
+                        <p class="card-text" id="dias"><b>Dias da Semana:</b> <?php echo htmlspecialchars($reserva ? $teste : '', ENT_QUOTES, 'UTF-8'); ?></p>
                         <a href="add_reserva.php?evento_id=<?php echo $_GET['evento_id']; ?>&reserva_id=<?php echo $reserva->getId(); ?>" class="btn btn-primary">Detalhes</a>
                     </div>
                 </div>
@@ -141,8 +181,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </body>
 
+
 <?php
-    require_once "Frontend/template/footer.php";
+require_once "Frontend/template/footer.php";
 ?>
 
 
