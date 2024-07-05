@@ -102,7 +102,7 @@ require_once "Frontend/template/header.php";
 
     <h3>Detalhes da Reserva</h3>
     <br>
-    <form action="add_reserva.php" method="POST">
+    <form action="add_reserva.php" method="POST" onsubmit="return validateForm()">
         <input type="hidden" name="id" value="<?php echo $reserva ? $reserva->getId() : ''  ?>">
         <div class="card">
             <div class="card-body">
@@ -221,6 +221,20 @@ require_once "Frontend/template/header.php";
         }
     })
 </script>
+
+<script>
+        function validateForm() {
+            const dataInicio = document.getElementById('data_inicio').value;
+            const dataFim = document.getElementById('data_fim').value;
+
+            if (dataInicio && dataFim && new Date(dataFim) < new Date(dataInicio)) {
+                alert("A data de fim não pode ser menor que a data de início.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 <?php
 require_once "Frontend/template/footer.php";
 ?>

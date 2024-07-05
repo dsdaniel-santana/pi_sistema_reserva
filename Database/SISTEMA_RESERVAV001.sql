@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS sala (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     numero VARCHAR(10) NOT NULL,
     capacidade INT NOT NULL,
-    andar INT NOT NULL,
+    andar VARCHAR(30) NOT NULL,
     tipo_ID INT,
     FOREIGN KEY (tipo_ID) REFERENCES tipo(id)
 );
@@ -50,3 +50,27 @@ CREATE TABLE IF NOT EXISTS usuario (
     email VARCHAR(100) UNIQUE,
     token VARCHAR(255) DEFAULT NULL
 );
+
+DELIMITER //
+
+CREATE TRIGGER trg_before_insert_reserva
+BEFORE INSERT ON reserva
+FOR EACH ROW
+BEGIN
+    IF NEW.data_fim < NEW.data_inicio THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'data_fim não pode ser menor que data_inicio';
+    END IF;
+END//
+
+CREATE TRIGGER trg_before_update_reserva
+BEFORE UPDATE ON reserva
+FOR EACH ROW
+BEGIN
+    IF NEW.data_fim < NEW.data_inicio THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'data_fim não pode ser menor que data_inicio';
+    END IF;
+END//
+
+DELIMITER ;
+
+
